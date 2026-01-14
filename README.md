@@ -98,6 +98,9 @@ Run the script and save results
 
 ## Windows - directory
 	tree /f
+.  
+
+	dir /s/a/q/n
 
 ## Windows - check env
 	systeminfo
