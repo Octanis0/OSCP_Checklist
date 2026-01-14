@@ -110,6 +110,12 @@ Run the script and save results
 .  
 
 	net users
+.  
+
+	set
+.  
+
+	tasklist /svc
 
 ## Windows - services
 	sc \\localhost query state= all| findstr SERVICE_NAME
@@ -132,8 +138,10 @@ List one-time startup programs
 	icacls filename.ext
 Look for F, W, M access  
 
-	icalcs . /t /c
+	icacls . /t /c
 List access recursively  
+
+	icacls "C:\Documents and Settings\All Users\Start Menu\Programs\Startup\*"
 
 ## Windows - mimikatz
 	privilege::debug
