@@ -221,6 +221,19 @@ Check if iptables forwarding is enabled
 	sudo iptables -t nat -A POSTROUTING -i eth1 -o tcp -d CONNECTIP --dport 7000 -j SNAT --to-source LISTENIP2
 Set pre and post routes, iptables  
 
+## SSH + proxychains
+	ssh -D 9050 remoteuser@123.123.123.123
+Set a SSH forward on localhost 9050  
+
+	tail /etc/proxychains.conf
+Ensure there is a line `socks4 127.0.0.1 9050`
+
+	sudo proxychains nmap -v -Pn -sT INTERNALIP
+proxychain nmap portscan on one host  
+
+	proxychains xfreerdp /v:INTERNALIP /u:username /p:password
+proxychain rdp connect  
+
 # APPENDIX - WORDLISTS
 ## Kali built-in
 ### Passwords
