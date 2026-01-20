@@ -1,11 +1,23 @@
 # STAGE 1 - RECONNAISSANCE
+## Ping sweep
+	ip a
+List interfaces  
+
+	nmap -sn 123.123.123.0/24
+Host discovery
+
 ## General portscan
 	nmap -p- --min-rate=1000 -T4 -oN output.txt 123.123.123.123
 Flags: All ports, rapid, aggressive, results to output.txt  
 Reduce T value or skip min-rate for unstable/slow networks  
+
+	nmap -Pn -sT 123.123.123.123
+Flags: Skip ping, basic TCP scan
+
 ## Versioning portscan
 	nmap -p 100,200 -sC -sV -oN output-version.txt 123.123.123.123
 Flags: Ports 100,200, NSE script, check version, results to output.txt  
+
 ## UDP portscan
 UDP is a pain to portscan because a response is not obligatory  
 
@@ -73,6 +85,13 @@ Flags: Use module 10000, crack hash.txt, use passlist.txt
 ### nxc
 	nxc <proto> 123.123.123.123 --port 8000 -u <filename|name> -p <filename|name> --continue-on-success
 Bruteforce usernames and passwords via the protocol on port 8000  
+
+### SMB
+	smbclient -L //123.123.123.123 -U username%password
+List shares  
+
+	impacket-psexec username:password@123.123.123.123
+Use `\` to escape special characters in password. Requires admin  
 
 # STAGE 3 - PRIVILEGE ESCALATION
 ## Weakness Enumeration (Linpeas/Winpeas)
