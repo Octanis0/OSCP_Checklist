@@ -4,7 +4,7 @@
 List interfaces  
 
 	nmap -sn 123.123.123.0/24
-Host discovery
+Host discovery  
 
 ## General portscan
 	nmap -p- --min-rate=1000 -T4 -oN output.txt 123.123.123.123
@@ -12,7 +12,7 @@ Flags: All ports, rapid, aggressive, results to output.txt
 Reduce T value or skip min-rate for unstable/slow networks  
 
 	nmap -Pn -sT 123.123.123.123
-Flags: Skip ping, basic TCP scan
+Flags: Skip ping, basic TCP scan  
 
 ## Versioning portscan
 	nmap -p 100,200 -sC -sV -oN output-version.txt 123.123.123.123
@@ -53,6 +53,9 @@ Directory fuzz, filter responses codes 403 & 404
 	ffuf -u http://FUZZ.targeturl.com -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -fw 3
 Subdomain fuzz, filter responses to 3 words  
 
+	ffuf -u http://targeturl.com/FUZZ -w /wordlist.txt -b "PHPSESSID=33ptqlqcbf3odc4a9e0l1qa65d"
+Fuzz with cookie  
+
 
 ## MSSQL
 ### mssqlpwner
@@ -79,6 +82,7 @@ Flags: Use module 10000, crack hash.txt, use passlist.txt
 ## Compromised User Access
 ### SSH
 	ssh user@123.123.123.123
+
 ### WinRM
 	evil-winrm -i 123.123.123.123 -u username -p password
 
