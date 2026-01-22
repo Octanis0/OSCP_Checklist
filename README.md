@@ -37,6 +37,8 @@ Flags: 128 concurrent checks, timeout after 1000 ms
 Flags: listen mode, verbose, no DNS, on port 5000  
 Victim machine must be configured to send a shell to the attacker on this port  
 
+	https://www.revshells.com/
+.  
 
 ## Webservers
 ### Webscan
@@ -59,6 +61,10 @@ Subdomain fuzz, filter responses to 3 words
 	ffuf -u http://targeturl.com/FUZZ -w /wordlist.txt -b "PHPSESSID=33ptqlqcbf3odc4a9e0l1qa65d"
 Fuzz with cookie  
 
+## Injections
+### Commands injections
+	...; id #
+Include # to comment out code behind  
 
 ## MSSQL
 ### mssqlpwner
