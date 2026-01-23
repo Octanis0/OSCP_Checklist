@@ -55,7 +55,7 @@ Flags: Use directory namelist, find extensions, save results
 	ffuf -u http://targeturl.com/FUZZ -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words-lowercase.txt -fc 403,404
 Directory fuzz, filter responses codes 403 & 404  
 
-	ffuf -u http://FUZZ.targeturl.com -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -fw 3
+	ffuf -u http://targeturl.com -H "Host: FUZZ.targeturl.com" -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt -fw 3
 Subdomain fuzz, filter responses to 3 words  
 
 	ffuf -u http://targeturl.com/FUZZ -w /wordlist.txt -b "PHPSESSID=33ptqlqcbf3odc4a9e0l1qa65d"
