@@ -14,6 +14,9 @@ Reduce T value or skip min-rate for unstable/slow networks
 	nmap -Pn -sT 123.123.123.123
 Flags: Skip ping, basic TCP scan  
 
+	nmap -g53 123.123.123.123
+Flags: Source port 53 (may bypass some filtering rules)  
+
 ## Versioning portscan
 	nmap -p 100,200 -sC -sV -oN output-version.txt 123.123.123.123
 Flags: Ports 100,200, NSE script, check version, results to output.txt  
@@ -63,7 +66,7 @@ Fuzz with cookie
 
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
-Set inputs to 0
+Set inputs to 0  
 
 ## Injections
 ### Commands injections
@@ -270,8 +273,8 @@ proxychain nmap portscan on one host
 	proxychains xfreerdp /v:INTERNALIP /u:username /p:password
 proxychain rdp connect  
 
-# APPENDIX - WORDLISTS
-## Kali built-in
+# APPENDIX
+## Kali built-in wordlists
 ### Passwords
 	cd /usr/share/wordlists/rockyou.txt.gz
 	gzip -d rockyou.txt.gz
@@ -293,8 +296,12 @@ GET/POST parameters
 
 ## Seclists
 	sudo apt install seclists
-	/usr/share/seclists/
-
-## PwnKit
-	https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures
+	/usr/share/seclists/s
   
+## Vulnerabilities
+|Software|Version|CVE|Link|
+|---|---|---|---|
+|Docker Desktop for Windows|4.44.2|CVE-2025-9074|https://github.com/BridgerAlderson/CVE-2025-9074-PoC|
+|Cacti|1.2.29|CVE-2025-24367|https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC|
+|pkexec||CVE-2021-4034|https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures|
+|vsftpd|2.3.4|CVE-2011-2523|https://www.exploit-db.com/exploits/49757|
