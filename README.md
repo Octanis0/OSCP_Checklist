@@ -51,6 +51,13 @@ Basic webscan
 	sudo nano /etc/nikto.conf
 To use nikto with cookies  
 
+### Fingerprinting
+	nikto -h http://123.123.123.123 -Tuning b
+Software identification only  
+
+	curl -I http://123.123.123.123
+Header only  
+
 ### Directory Enumeration
 	gobuster dir -u http://123.123.123.123 -w directory-list-2.3-small.txt -x .php,.txt,.bak,.config,.py -o gobuster-output.txt
 Flags: Use directory namelist, find extensions, save results  
