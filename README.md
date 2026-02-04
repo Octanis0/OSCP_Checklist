@@ -259,8 +259,10 @@ List world-writable files
 	netsh interface portproxy add v4tov4 listenport=8000 listenaddress=LISTENIP connectport=7000 connectaddress=CONNECTIP
 
 ## Linux - port forwarding
-	ssh -L LISTENIP:8000:CONNECTIP:7000 user@123.123.123.123
-Using ssh  
+	ssh -L 8000:10.10.1.1:7000 user@123.123.123.123
+SSH tunneling, from localhost 8000 through device 123.123.123.123 to internal device 10.10.1.1:7000  
+Localhost/123.123.123.1 <--> 123.123.123.123/10.10.10.10 <--> 10.10.1.1    
+Afterwards, connect to localhost:8000 to access  
 
 	sysctl net.ipv4.ip_forward
 	sudo sysctl -w net.ipv4.ip_forward
