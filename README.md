@@ -268,8 +268,12 @@ List world-writable files
 ## Linux - port forwarding
 	ssh -L 8000:10.10.1.1:7000 user@123.123.123.123
 SSH tunneling, from localhost 8000 through device 123.123.123.123 to internal device 10.10.1.1:7000  
-Localhost/123.123.123.1 <--> 123.123.123.123/10.10.10.10 <--> 10.10.1.1    
+Localhost/123.123.123.1 <--> 123.123.123.123/10.10.10.10 <--> 10.10.1.1  
 Afterwards, connect to localhost:8000 to access  
+
+	rm /tmp/p;mkfifo /tmp/p;nc -lvnp 8000 < /tmp/p | nc 10.10.1.1 7000 > /tmp/p
+NC tunneling, from localhost 8000 through device 123.123.123.123 to internal device 10.10.1.1:7000  
+Afterwards, connect to 123.123.123.123:8000 to access  
 
 	sysctl net.ipv4.ip_forward
 	sudo sysctl -w net.ipv4.ip_forward
