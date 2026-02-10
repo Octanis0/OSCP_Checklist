@@ -45,6 +45,9 @@ Victim machine must be configured to send a shell to the attacker on this port
 
 ## Webservers
 ### Webscan
+	sudo nmap -sV --script http-enum -p 80,443 123.123.123.123
+Enum with nmap  
+
 	nikto -h http://123.123.123.123
 Basic webscan  
 
