@@ -62,7 +62,7 @@ Software identification only
 Header only  
 
 ### Directory Enumeration
-	gobuster dir -u http://123.123.123.123 -w directory-list-2.3-small.txt -x .php,.txt,.bak,.config,.py -o gobuster-output.txt
+	gobuster dir -u http://123.123.123.123 -w directory-list-2.3-small.txt -e .php,.txt,.bak,.config,.py -o gobuster-output.txt
 Flags: Use directory namelist, find extensions, save results  
 
 	ffuf -u http://targeturl.com/FUZZ -w /usr/share/seclists/Discovery/Web-Content/raft-medium-words-lowercase.txt -fc 403,404
@@ -76,6 +76,9 @@ Subdomain fuzz
 
 	ffuf -u http://targeturl.com/FUZZ -w /wordlist.txt -b "PHPSESSID=33ptqlqcbf3odc4a9e0l1qa65d"
 Fuzz with cookie  
+
+	curl -H "Content-Type: application/json" -d "abc" http://123.123.123.123
+POST request with json type  
 
 ### Webshells
 	<?php system("whoami")?>
@@ -319,7 +322,20 @@ GET/POST parameters
 
 ## Seclists
 	sudo apt install seclists
-	/usr/share/seclists/s
+	/usr/share/seclists/
+
+## assetnote.io
+	https://wordlists.assetnote.io/
+
+## HTTP headers
+	(POST|GET|PUT) / HTTP/1.1
+	Content-Type: application/x-www-form-urlencoded
+	Content-Type: application/json
+	Authorization: Bearer <token>
+	Authorization: Basic <token>
+	Cookie: $Version=1; Skin=new;
+	Host: en.wikipedia.org
+	User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0
   
 ## Vulnerabilities
 |Software|Version|CVE|Link|
