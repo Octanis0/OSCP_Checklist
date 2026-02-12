@@ -271,6 +271,7 @@ List world-writable files
 ## Linux - port forwarding
 	ssh -L 8000:10.10.1.1:7000 user@123.123.123.123
 SSH tunneling, from localhost 8000 through device 123.123.123.123 to internal device 10.10.1.1:7000  
+Execute on attacker machine  
 Localhost/123.123.123.1 <--> 123.123.123.123/10.10.10.10 <--> 10.10.1.1  
 Afterwards, connect to localhost:8000 to access  
 
