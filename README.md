@@ -91,6 +91,10 @@ Fuzz with cookie
 	curl -H "Content-Type: application/json" -d "abc" http://123.123.123.123
 POST request with json type  
 
+	/robots.txt
+	/sitemap.xml
+.  
+
 ### Webshells
 	<?php system("whoami")?>
 PHP webshell  
@@ -349,6 +353,7 @@ GET/POST parameters
 	Content-Type: application/json
 	Authorization: Bearer <token>
 	Authorization: Basic <token>
+	Authorization: OAuth <token>
 	Cookie: $Version=1; Skin=new;
 	Host: en.wikipedia.org
 	User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0
