@@ -118,6 +118,10 @@ Flags: Use module 10000, crack hash.txt, use passlist.txt
 ## Compromised User Access
 ### SSH
 	ssh user@123.123.123.123
+with input password  
+
+	ssh -i rsa.file -p 10000 user@123.123.123.123
+with rsa private key, over port 10000  
 
 ### WinRM
 	evil-winrm -i 123.123.123.123 -u username -p password
