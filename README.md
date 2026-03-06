@@ -95,6 +95,9 @@ POST request with json type
 	/sitemap.xml
 .  
 
+### Wordpress plugin scan
+	wpscan --url http://123.123.123.123
+
 ### Webshells
 	<?php echo system("whoami"); ?>
 PHP webshell  
