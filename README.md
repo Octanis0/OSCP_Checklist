@@ -133,6 +133,10 @@ If the hash contains 32-char hex,
 	hashcat -m 10000 hash.txt passlist.txt
 Flags: Use module 10000, crack hash.txt, use passlist.txt  
 
+### hydra
+	hydra -l user -P passlist.txt ssh://123.123.123.123:22
+password guess. Use `-L userlist.txt and -p password` for password spray  
+
 
 ## Compromised User Access
 ### SSH
