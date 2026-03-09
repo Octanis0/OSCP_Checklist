@@ -293,6 +293,9 @@ Queryconfig service
 	for /f "tokens=2 delims=: " %s in ('sc query state^= all ^| findstr "SERVICE_NAME"') do @(for /f "delims=" %t in ('sc qc "%s" ^| findstr "BINARY_PATH_NAME"') do @echo %s && echo %t)
 Show all binary paths  
 
+## Windows - open ports
+	netstat -ano
+
 ## Windows - registry
 	reg query "HKLM\software\microsoft\windows\currentversion\run" /s
 List startup programs  
@@ -353,6 +356,9 @@ List root-running services
 
 	ps aux | awk '{print $11}' | xargs -r ls -la 2>/dev/null | awk '!x[$0]++'
 List services binary path  
+
+## Linux - open ports
+	ss -tulnp
 
 ## Linux - permissions
 	find / -perm -4000 -type f 2>/dev/null
