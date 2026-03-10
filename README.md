@@ -270,8 +270,12 @@ Write clipboard into file
 
 	dir /s/a/q/n
 
+## Windows - user check
+	Get-LocalUser | ForEach-Object { $u = $_; [PSCustomObject]@{ User = $u.Name; Groups = (Get-LocalGroup | Where-Object { (Get-LocalGroupMember $_ -ErrorAction SilentlyContinue).Name -match [regex]::Escape($u.Name) }).Name -join ', ' } }
+List all users and their groups  
+
 ## Windows - search
-	Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+	Get-ChildItem -Path C:\ -Include *.txt,*.ini,*.rtf -File -Recurse -ErrorAction SilentlyContinue
 Search for any file with .kdbx extension  
 
 ## Windows - check env
