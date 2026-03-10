@@ -303,6 +303,9 @@ Queryconfig service
 	for /f "tokens=2 delims=: " %s in ('sc query state^= all ^| findstr "SERVICE_NAME"') do @(for /f "delims=" %t in ('sc qc "%s" ^| findstr "BINARY_PATH_NAME"') do @echo %s && echo %t)
 Show all binary paths  
 
+	Get-CimInstance -ClassName win32_service | Select Name,State,StartMode,PathName | Where-Object {$_.PathName -notlike "*system32\svchost*"}
+List all services and binary paths, omit svchost  
+
 ## Windows - open ports
 	netstat -ano
 
@@ -335,7 +338,14 @@ LSADump
 	https://www.wwt.com/api-new/attachments/66a7b8da13599902a3aa53a9/file
 
 ## Windows - powershell history
-	Appdata/roaming/microsoft/windows/Powershell/PSreadline/consolehost_history.txt
+	type $((Get-PSReadlineOption).HistorySavePath)
+File is usually `Appdata/roaming/microsoft/windows/Powershell/PSreadline/consolehost_history.txt`  
+
+	Get-History
+Finds current shell history  
+
+## Windows - powershell scriptblock logging
+Event ID 4104 in App-Log>Microsoft/Windows/Powershell/Operational.  
 
 ## Windows - impersonate token
 	https://www.offsec.com/metasploit-unleashed/fun-incognito/
