@@ -188,6 +188,10 @@ Flags: Domain username RID bruteforce, save results
 If the hash contains 32-char hex,  
 
     https://crackstation.net/
+
+### NTLM Rainbow Table
+	https://ntlm.pw
+
 ### Hash bruteforce
 	hashcat -m 10000 hash.txt passlist.txt
 Flags: Use module 10000, crack hash.txt, use passlist.txt  
