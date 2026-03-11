@@ -391,6 +391,9 @@ Send filename contents into target port 8000 over nc
 
 ## Linux - directory
 	tree
+.  
+
+	ls -lah ./*
 
 ## Linux - check powers
 	id
@@ -406,6 +409,15 @@ List services binary path
 ## Linux - open ports
 	ss -tulnp
 
+## Linux - cronjobs
+	ls -lah /etc/cron*
+	crontab -l
+`crontab -l` will list current user cronjobs only  
+
+## Linux - installed programs
+	dpkg -l
+`rpm` for red-hat devices  
+
 ## Linux - permissions
 	find / -perm -4000 -type f 2>/dev/null
 List SUID files  
@@ -415,6 +427,20 @@ List GUID files
 
 	find / -perm -2 -type f 2>/dev/null
 List world-writable files  
+
+	find / -writable -type d 2>/dev/null
+	find / -writable -type f 2>/dev/null
+List writable files and directories  
+
+## Linux - history
+	history
+.  
+
+cat ~/.bash_history
+
+## Linux - env
+	env
+	cat .bashrc
 
 # STAGE 3.5 - PIVOT
 ## Windows - port forwarding
