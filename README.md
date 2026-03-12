@@ -435,6 +435,16 @@ List world-writable files
 	find / -writable -type f 2>/dev/null
 List writable files and directories  
 
+	/usr/sbin/getcap -r / 2>/dev/null
+Look for capabilities  
+
+## Linux - writable passwd
+	'name:passhash:0:0::/root:'
+Generate passhash with `openssl passwd <password>`  
+
+## Linux - binaries
+	gtfobins.org
+
 ## Linux - history
 	history
 .  
@@ -444,6 +454,12 @@ cat ~/.bash_history
 ## Linux - env
 	env
 	cat .bashrc
+
+## AD - Powerview
+	Get-NetGroup
+	Get-NetUser
+	Get-NetComputer
+	Find-LocalAdminAccess
 
 # STAGE 3.5 - PIVOT
 ## Windows - port forwarding
@@ -543,6 +559,11 @@ GET/POST parameters
 |Grafana|8.3.0 and more|CVE-2021-43798|[grafana-cve-2021-43798](https://www.vulncheck.com/blog/grafana-cve-2021-43798)|
 |Perfect Survey (Wordpress)|<1.5.2|CVE-2021-24762|[metasploit-module](https://github.com/aaryan-11-x/My-Metasploit-Modules/blob/main/CVE-2021-24762%3A%20WordPress%20Plugin%20Perfect%20Survey%201.5.1%20-%20SQLi%20(Unauthenticated)/wp_perfect_survey_sqli.rb)|
 |FileZilla|3.63.1|CVE-2023-53959|Generate `TextShaping.dll` and place in app folder|
+
+
+## Linux AppArmor check
+	aa-status
+Enforce mode profiles and processes will block privesc attempts.  
 
 
 ## Quote escapes
