@@ -414,6 +414,9 @@ List services binary path
 	crontab -l
 `crontab -l` will list current user cronjobs only  
 
+	grep "CRON" /var/log/syslog
+if crontab is not accessible, check logs  
+
 ## Linux - installed programs
 	dpkg -l
 `rpm` for red-hat devices  
