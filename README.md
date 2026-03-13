@@ -38,7 +38,7 @@ Flags: 128 concurrent checks, timeout after 1000 ms
 	nc -nv -w 1 -z 123.123.123.123 100-150
 unix netcat portscan on ports 100 to 150  
 
-	150..200 | ForEach-Object {Test-NetConnection 123.123.123.123 -Port $_}
+	150..200 | ForEach-Object {Test-NetConnection 123.123.123.123 -Port $_ -WarningAction SilentlyContinue} | Where-Object {$_.TcpTestSucceeded}
 powershell portscan on ports 100 to 150  
 
 ## SMB recon
