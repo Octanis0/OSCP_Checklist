@@ -179,6 +179,9 @@ Flags: Connect to SQL server in interactive shell
 	mssqlpwner domain/user:password@123.123.123.123 direct-query "execute as login = appdev;use databasename;select * from users"
 Flags: Execute direct query, impersonate as appdev, dump users table  
 
+### mysql non-interactive query
+	mysql -u 'root' --password='' -D database -e "SHOW DATABASES"
+
 ### nxc
 	nxc mssql 123.123.123.123 -u user -p password --rid-brute > rid-output.txt
 Flags: Domain username RID bruteforce, save results  
