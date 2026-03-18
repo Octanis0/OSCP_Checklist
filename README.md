@@ -379,6 +379,14 @@ Event ID 4104 in App-Log>Microsoft/Windows/Powershell/Operational.
 ## Windows - impersonate token
 	https://www.offsec.com/metasploit-unleashed/fun-incognito/
 
+## Windows - add new admin user
+	net user "Username" "Password" /add
+	net localgroup administrators "Username" /add
+
+## Windows - enable RDP
+	Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+	Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+
 ## Linux - file transfer
 	cat filename | base64 -w 0;echo
 Convert file into clipboard contents  
