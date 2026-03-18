@@ -289,7 +289,7 @@ Write clipboard into file
 List all users and their groups  
 
 ## Windows - search
-	Get-ChildItem -Path C:\ -Include *.txt,*.ini,*.rtf -File -Recurse -ErrorAction SilentlyContinue
+	Get-ChildItem -Path C:\ -Include *.txt,*.ini,*.rtf,*.log -File -Recurse -ErrorAction SilentlyContinue
 Search for any file with .kdbx extension  
 
 ## Windows - check env
@@ -386,6 +386,11 @@ Event ID 4104 in App-Log>Microsoft/Windows/Powershell/Operational.
 ## Windows - enable RDP
 	Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
 	Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+powershell  
+
+	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+	netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+cmd  
 
 ## Linux - file transfer
 	cat filename | base64 -w 0;echo
