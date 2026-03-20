@@ -215,6 +215,10 @@ with input password
 	ssh -i rsa.file -p 10000 user@123.123.123.123
 with rsa private key, over port 10000  
 
+### SSH - overwrite internal pub key
+	echo "ssh-rsa .... kali@kali" >> /home/user/.ssh/authorized_keys
+`/root/.ssh/authorized_keys` for root pubkey  
+
 ### WinRM
 	evil-winrm -i 123.123.123.123 -u username -p password
 
@@ -414,6 +418,9 @@ List services binary path
 
 ## Linux - cronjobs
 	ls -lah /etc/cron*
+	cat /etc/cron* /etc/at* /etc/anacrontab /var/spool/cron/crontabs/* /etc/incron.d/* /var/spool/incron/* 2>/dev/null
+linpeas check  
+
 	crontab -l
 `crontab -l` will list current user cronjobs only  
 
@@ -638,16 +645,19 @@ GET/POST parameters
 	User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:12.0) Gecko/20100101 Firefox/12.0
   
 ## Vulnerabilities
-|Software|Version|CVE|Link|
-|---|---|---|---|
-|Docker Desktop for Windows|4.44.2|CVE-2025-9074|[CVE-2025-9074-PoC](https://github.com/BridgerAlderson/CVE-2025-9074-PoC)|
-|Cacti|1.2.29|CVE-2025-24367|[CVE-2025-24367-Cacti-PoC](https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC)|
-|pkexec||CVE-2021-4034|[pwnkit](https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures)|
-|vsftpd|2.3.4|CVE-2011-2523|[Exploitdb](https://www.exploit-db.com/exploits/49757)|
-|Apache|2.4.49|CVE-2021-41773|see url path traversal|
-|Grafana|8.3.0 and more|CVE-2021-43798|[grafana-cve-2021-43798](https://www.vulncheck.com/blog/grafana-cve-2021-43798)|
-|Perfect Survey (Wordpress)|<1.5.2|CVE-2021-24762|[metasploit-module](https://github.com/aaryan-11-x/My-Metasploit-Modules/blob/main/CVE-2021-24762%3A%20WordPress%20Plugin%20Perfect%20Survey%201.5.1%20-%20SQLi%20(Unauthenticated)/wp_perfect_survey_sqli.rb)|
-|FileZilla|3.63.1|CVE-2023-53959|Generate `TextShaping.dll` and place in app folder|
+|Software|Version|CVE|Link|Remarks|
+|---|---|---|---|---|
+|Docker Desktop for Windows|4.44.2|CVE-2025-9074|[CVE-2025-9074-PoC](https://github.com/BridgerAlderson/CVE-2025-9074-PoC)||
+|Cacti|1.2.29|CVE-2025-24367|[CVE-2025-24367-Cacti-PoC](https://github.com/TheCyberGeek/CVE-2025-24367-Cacti-PoC)||
+|pkexec||CVE-2021-4034|[pwnkit](https://ine.com/blog/exploiting-pwnkit-cve-2021-4034-techniques-and-defensive-measures)|pkexec SUID, gcc present on target|
+|vsftpd|2.3.4|CVE-2011-2523|[Exploitdb](https://www.exploit-db.com/exploits/49757)||
+|Apache|2.4.49|CVE-2021-41773|see url path traversal||
+|Grafana|8.3.0 and more|CVE-2021-43798|[grafana-cve-2021-43798](https://www.vulncheck.com/blog/grafana-cve-2021-43798)||
+|Perfect Survey (Wordpress)|<1.5.2|CVE-2021-24762|[metasploit-module](https://github.com/aaryan-11-x/My-Metasploit-Modules/blob/main/CVE-2021-24762%3A%20WordPress%20Plugin%20Perfect%20Survey%201.5.1%20-%20SQLi%20(Unauthenticated)/wp_perfect_survey_sqli.rb)||
+|FileZilla|3.63.1|CVE-2023-53959|Generate `TextShaping.dll` and place in app folder||
+|Saltstack||CVE-2020-11651|[CVE-2020-11651-poc](https://github.com/jasperla/CVE-2020-11651-poc)|Ports 4505,4506,8000|
+|Subrion|<=4.2.1|CVE-2023-46947|[github issue](https://github.com/intelliants/subrion/issues/909)|Default creds - admin,admin|
+|Exiftool-DjVu|7.44 - 12.23|CVE-2021-22204|[CVE-2021-22204-exiftool](https://github.com/convisolabs/CVE-2021-22204-exiftool)|Check with `exiftool -ver`|
 
 
 ## Linux AppArmor check
