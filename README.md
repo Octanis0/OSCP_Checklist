@@ -676,6 +676,8 @@ GET/POST parameters
 |Saltstack||CVE-2020-11651|[CVE-2020-11651-poc](https://github.com/jasperla/CVE-2020-11651-poc)|Ports 4505,4506,8000|
 |Subrion|<=4.2.1|CVE-2023-46947|[github issue](https://github.com/intelliants/subrion/issues/909)|Default creds - admin,admin|
 |Exiftool-DjVu|7.44 - 12.23|CVE-2021-22204|[CVE-2021-22204-exiftool](https://github.com/convisolabs/CVE-2021-22204-exiftool)|Check with `exiftool -ver`|
+|Exhibitor/Zookeeper|1.7.1|CVE-2019-5029|[exploitDB](https://www.exploit-db.com/exploits/48654)|Blind command inj.|
+|Grav|<1.10.7|CVE-2021-21425|[github](https://github.com/CsEnox/CVE-2021-21425/blob/main/exploit.py)|Unauth YAML config overwrite|
 
 
 ## Linux AppArmor check
