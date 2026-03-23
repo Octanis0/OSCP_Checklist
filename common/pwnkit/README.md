@@ -7,13 +7,15 @@
 0.105  
 
 ## Compilation
+Transfer `makefile`, `.so` and `.c` files to target machine  
+
 	make all
 
 ## Usage
 	./exploit
 
 ## Troubleshooting
-If compilation error `collect2: fatal error: cannot find 'ld'`, the compiler could not find the binary from `PATH` variable
+If compilation error `collect2: fatal error: cannot find 'ld'`, the compiler could not find the binary from `PATH` variable  
 Could be fixed with  
 
 	export PATH=$PATH:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
