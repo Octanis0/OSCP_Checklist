@@ -482,6 +482,13 @@ Generate passhash with `openssl passwd <password>`
 	env
 	cat .bashrc
 
+## Linux - keyword search
+	grep -rinE '(password|username|user|pass|key|token|secret|admin|login|credentials)' ./
+
+## Linux - SSH permissions
+	cat /etc/ssh/sshd_config
+`AllowUsers` dictate who can SSH  
+
 ## AD - Powerview
 	Get-NetGroup
 	Get-NetUser
@@ -679,6 +686,8 @@ GET/POST parameters
 |Exhibitor/Zookeeper|1.7.1|CVE-2019-5029|[exploitDB](https://www.exploit-db.com/exploits/48654)|Blind command inj.|
 |Grav|<1.10.7|CVE-2021-21425|[github](https://github.com/CsEnox/CVE-2021-21425/blob/main/exploit.py)|Unauth YAML config overwrite|
 |Redis|<=5.0.5|???|[github](https://github.com/n0b0dyCN/redis-rogue-server/tree/master)|Shell|
+|FreeSWITCH|1.10.1||[exploitDB](https://www.exploit-db.com/exploits/47799)||
+|Cassandra Web|0.5.0||[exploitDB](https://www.exploit-db.com/exploits/49362)|`curl --path-as-is http://ip:3000/../../../../../../../../etc/passwd`|
 
 
 
@@ -692,3 +701,12 @@ Enforce mode profiles and processes will block privesc attempts.
 Use `''` to escape all other special characters. Close quote and `\'` and reopen to include one single quote  
 
 For double quotes, `$`, `` ` ``, `"`, `\`, `!` must be escaped with backslash.  
+
+## Python venv
+	python -m venv venv
+	source venv/bin/activate
+	pip install <packages>
+Create virtual env. for custom python packages  
+
+	deactivate
+cleanup  
