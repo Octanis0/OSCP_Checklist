@@ -749,6 +749,7 @@ GET/POST parameters
 |JetBrains/TeamCity|<=2023.11.3|CVE-2024-27198|[rapid7](https://www.rapid7.com/blog/post/2024/03/04/etr-cve-2024-27198-and-cve-2024-27199-jetbrains-teamcity-multiple-authentication-bypass-vulnerabilities-fixed/)|Use curl command|
 |pdfkit|<=0.8.7.2|CVE-2022-25765|[exploitdb](https://www.exploit-db.com/exploits/51293)|Point to the POST endpoint|
 |wp-advanced-search|<3.3.9.2|CVE-2024-9796|[wpscan](https://wpscan.com/vulnerability/2ddd6839-6bcb-4bb8-97e0-1516b8c2b99b/)|Use PoC SQL injection|
+|PyLoad|0.5.0|CVE-2023-0297|[exploitdb](https://www.exploit-db.com/exploits/51532)|First check if `/flash/addcrypted2` endpoint is available|
 
 
 ## Run new shell
