@@ -514,7 +514,7 @@ List SUID files
 	find / -perm -2000 -type f 2>/dev/null
 List GUID files  
 
-	find / -perm -2 -type f 2>/dev/null
+	find / -perm -2 -type f ! -path "/proc/*" ! -path "/sys/*" 2>/dev/null
 List world-writable files  
 
 	find / -writable -type d 2>/dev/null
@@ -571,6 +571,9 @@ Compile the .so and inject it
 
 ## Linux - keyword search
 	grep -rinE '(password|username|user|pass|key|token|secret|admin|login|credentials)' ./
+
+## Linux - mail search
+	find / -path '*mail*' -type f 2>/dev/null
 
 ## Linux - SSH permissions
 	cat /etc/ssh/sshd_config
