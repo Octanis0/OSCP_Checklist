@@ -790,6 +790,7 @@ GET/POST parameters
 |PHP SPX||CVE-2024-42007|[github issue](https://github.com/NoiseByNorthwest/php-spx/issues/251)|Replace SPX_KEY with server SPX key|
 |SmarterMail|6985|CVE-2019-7214|[exploitdb](https://www.exploit-db.com/exploits/49216)|.NET remoting service port open|
 |Windows TaskSch||CVE-2010-3338|[exploitdb](https://www.exploit-db.com/exploits/15589)|Run `cscript file.wsf`. New creds created: `test123:test123`|
+|LibreOffice||CVE-2023-2255|[github](https://github.com/elweth-sec/CVE-2023-2255)|If the odt file is opened with LibreOffice, execution achieved|
 
 
 ## Run new shell
