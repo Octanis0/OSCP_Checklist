@@ -823,6 +823,10 @@ GET/POST parameters
 |SmarterMail|6985|CVE-2019-7214|[exploitdb](https://www.exploit-db.com/exploits/49216)|.NET remoting service port open|
 |Windows TaskSch||CVE-2010-3338|[exploitdb](https://www.exploit-db.com/exploits/15589)|Run `cscript file.wsf`. New creds created: `test123:test123`|
 |LibreOffice||CVE-2023-2255|[github](https://github.com/elweth-sec/CVE-2023-2255)|If the odt file is opened with LibreOffice, execution achieved|
+|H2 Database||CVE-2021-42392|[github](https://github.com/Be-Innova/CVE-2021-42392-exploit-lab/blob/main/client/h2_exploit.py)|RCE direct from sql query|
+|H2 Database|||[exploitdb](https://www.exploit-db.com/exploits/49384)|JNI RCE if javac is missing|
+|PaperStream|1.42.0.5685|CVE-2018-16156|[exploitdb](https://www.exploit-db.com/exploits/49382)|Payload required may be 32bit|
+|HP Power Manager||CVE-2009-2685|[github](https://github.com/CountablyInfinite/HP-Power-Manager-Buffer-Overflow-Python3/blob/master/hp_pm_exploit_p3.py)|Replace buf with your own msfvenom payload|
 
 
 ## Run new shell
