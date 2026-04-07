@@ -45,6 +45,8 @@ powershell portscan on ports 100 to 150
 	sudo nbtscan -r 123.123.123.0/24
 list NetBIOS name  
 
+	enum4linux -a 123.123.123.123
+
 # STAGE 2 - INITIAL ACCESS
 ## Netcat Shell Catching
 	nc -lvnp 5000
@@ -604,6 +606,14 @@ Compile the .so and inject it
 	cat /etc/ssh/sshd_config
 `AllowUsers` dictate who can SSH  
 
+## Linux - MySQL UDF escalation/lateral
+[exploitdb](https://www.exploit-db.com/exploits/50236). Potentially possible manually on a windows machine, but shellcode not available. If Windows, use Metasploit.    
+
+Requires:  
+1. DB user has INSERT privileges  
+1. Library file can be written into a valid folder for reading libraries  
+1. OS user running MySQL is some other user  
+
 ## AD - Powerview
 	Get-NetGroup
 	Get-NetUser
@@ -690,6 +700,15 @@ proxychain nmap portscan on one host
 
 	proxychains xfreerdp /v:INTERNALIP /u:username /p:password
 proxychain rdp connect  
+
+## Tunnel through existing proxy
+E.g. squid proxy  
+
+	http <proxy ip> <proxy port>
+Add to `/etc/proxychains.conf`  
+Then, `nmap` like above. Browser has its own proxy settings  
+
+	curl --proxy http://<proxy ip>:<proxy port> http://<internal ip>:<internal port>
 
 ## Net-NTLMv2 hash catching
 	impacket-smbserver -ip <host-ip> TMP /tmp -smb2support -debug -outputfile outfile.txt
@@ -827,6 +846,10 @@ GET/POST parameters
 |H2 Database|||[exploitdb](https://www.exploit-db.com/exploits/49384)|JNI RCE if javac is missing|
 |PaperStream|1.42.0.5685|CVE-2018-16156|[exploitdb](https://www.exploit-db.com/exploits/49382)|Payload required may be 32bit|
 |HP Power Manager||CVE-2009-2685|[github](https://github.com/CountablyInfinite/HP-Power-Manager-Buffer-Overflow-Python3/blob/master/hp_pm_exploit_p3.py)|Replace buf with your own msfvenom payload|
+|Argus Surveillance|4.0.0|CVE-2018-15745|[exploitdb](https://www.exploit-db.com/exploits/45296)|LFI only|
+|Argus Surveillance|4.0.0|CVE-2022-25012|[exploitdb](https://www.exploit-db.com/exploits/50130)|Consider creating new users to test passwords with special characters|
+
+
 
 
 ## Run new shell
