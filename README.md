@@ -654,9 +654,30 @@ Requires:
 
 ## AD - Powerview
 	Get-NetGroup
+Get all groups  
+
 	Get-NetUser
+Get all users  
+
 	Get-NetComputer
+Get all computers  
+
+	Get-ObjectAcl -Identity "Domain Users"
+Get all incoming rights for a user  
+
 	Find-LocalAdminAccess
+List computers that current user has admin access to  
+
+	Find-DomainShare -CheckShareAccess
+List shares accessible to current user  
+
+## AD - Sharphound/Bloodhound
+	Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
+On target machine  
+
+	sudo neo4j start
+	bloodhound
+Start bloodhound  
 
 ## AD - Check LAPS
 	Get-DomainObject -SearchBase "LDAP://DC=sub,DC=domain,DC=local" | ? { $_."ms-mcs-admpwdexpirationtime" -ne $null } | select DnsHostname
