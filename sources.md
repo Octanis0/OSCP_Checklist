@@ -41,3 +41,5 @@ Invoke-SweetPotato.ps1 - /usr/share/powershell-empire/empire/server/data/module_
 [SharpEfsPotato](https://github.com/jakobfriedl/precompiled-binaries/tree/main/PrivilegeEscalation/Token)  
 
 [Autoruns](https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns)  
+
+[UACME](https://github.com/hfiref0x/UACME) - `net session`  
