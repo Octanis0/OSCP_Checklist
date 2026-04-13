@@ -4,6 +4,8 @@
 
 [JuicyPotato](https://github.com/ohpe/juicy-potato)  
 
+[JuicyPotato32](https://github.com/ivanitlearning/Juicy-Potato-x86)  
+
 [GetCLSID](https://github.com/ohpe/juicy-potato/tree/master/CLSID)  
 
 [Invoke-RunasCs](https://github.com/antonioCoco/RunasCs/tree/master)  
@@ -28,8 +30,14 @@
 
 [SigmaPotato](https://github.com/tylerdotrar/SigmaPotato)  
 
-Invoke-Rubeus.ps1 - /usr/share/powershell-empire/empire/server/data/module_source/credentials/Invoke-Rubeus.ps1
+Invoke-Rubeus.ps1 - /usr/share/powershell-empire/empire/server/data/module_source/credentials/Invoke-Rubeus.ps1  
 
-Invoke-SweetPotato.ps1 - /usr/share/powershell-empire/empire/server/data/module_source/privesc/Invoke-SweetPotato.ps1
+Invoke-SweetPotato.ps1 - /usr/share/powershell-empire/empire/server/data/module_source/privesc/Invoke-SweetPotato.ps1  
 
 [ligolo-ng](https://github.com/nicocha30/ligolo-ng)  
+
+[kiterunner](https://github.com/assetnote/kiterunner)  
+
+[SharpEfsPotato](https://github.com/jakobfriedl/precompiled-binaries/tree/main/PrivilegeEscalation/Token)  
+
+[Autoruns](https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns)  
