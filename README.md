@@ -177,6 +177,10 @@ Auth'd LDAP query
 	ldapsearch -x -H ldap://192.168.150.122 -D "CN=USERNAME,CN=Users,DC=domain,DC=com" -w 'PASSWORD' -b "dc=domain,dc=com" "(ms-MCS-AdmPwd=*)" ms-MCS-AdmPwd
 Query admin password from LAPS  
 
+## Files
+	exiftool <file>
+Check metadata on any innocent-looking files especially from fileshares e.g. ftp, smb  
+
 ## Injections
 ### Commands injections
 	...; id #
