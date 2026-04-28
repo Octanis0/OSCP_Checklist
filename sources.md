@@ -43,3 +43,5 @@ Invoke-SweetPotato.ps1 - /usr/share/powershell-empire/empire/server/data/module_
 [Autoruns](https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns)  
 
 [UACME](https://github.com/hfiref0x/UACME) - `net session`  
+
+[ntlm_theft](https://github.com/Greenwolf/ntlm_theft)  
