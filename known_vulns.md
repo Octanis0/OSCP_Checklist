@@ -42,4 +42,5 @@
 |Sonatype Nexus|3.21.1|CVE-2020-10199|[exploitdb](https://www.exploit-db.com/exploits/49385)|Post-auth RCE|
 |Glassfish|4.1|CVE-2017-1000028|[exploitdb](https://www.exploit-db.com/exploits/39441)|Directory traversal|
 |Synaman|4.0|CVE-2018-10814|[exploitdb](https://www.exploit-db.com/exploits/45387)|`C:/Synaman/config/AppConfig.xml`|
+|PackageKit|<1.3.5|CVE-2026-41651|[github](https://github.com/Vozec/CVE-2026-41651)|Creates an SUID bash in /tmp|
 
